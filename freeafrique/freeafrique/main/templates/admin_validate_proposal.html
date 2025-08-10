@@ -1,0 +1,308 @@
+{% extends 'base.html' %}
+{% block title %}Validation Proposition #{{ proposal.id }} - Administration{% endblock %}
+
+{% block content %}
+<!-- Header Section -->
+<section class="bg-gradient-to-r from-primary to-secondary text-white py-8">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex items-center justify-between">
+            <div>
+                <nav class="flex mb-4" aria-label="Breadcrumb">
+                    <ol class="inline-flex items-center space-x-1 md:space-x-3">
+                        <li class="inline-flex items-center">
+                            <a href="{% url 'admin_validate_proposals' %}" class="inline-flex items-center text-sm font-medium text-blue-200 hover:text-white">
+                                <i class="ri-home-line mr-2"></i>Validation
+                            </a>
+                        </li>
+                        <li>
+                            <div class="flex items-center">
+                                <i class="ri-arrow-right-s-line text-blue-300"></i>
+                                <span class="ml-1 text-sm font-medium text-blue-200 md:ml-2">Proposition #{{ proposal.id }}</span>
+                            </div>
+                        </li>
+                    </ol>
+                </nav>
+                <h1 class="text-3xl font-bold">Validation de Proposition</h1>
+                <p class="text-blue-100 mt-2">Examinez et validez la proposition #{{ proposal.id }}</p>
+        </div>
+            <div class="flex space-x-3">
+                <a href="{% url 'admin_validate_proposals' %}" class="bg-white bg-opacity-20 text-white px-4 py-2 rounded-lg hover:bg-opacity-30 transition-colors inline-flex items-center">
+                    <i class="ri-arrow-left-line mr-2"></i>Retour
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Main Content -->
+<section class="py-8 bg-gray-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    {% if messages %}
+        <div class="mb-6">
+            {% for message in messages %}
+            <div class="bg-{{ message.tags }}-100 border border-{{ message.tags }}-400 text-{{ message.tags }}-700 px-4 py-3 rounded-lg mb-4">
+                {{ message }}
+            </div>
+            {% endfor %}
+    </div>
+    {% endif %}
+
+        <div class="flex flex-col lg:flex-row gap-8">
+            <!-- Main Content -->
+            <div class="lg:w-2/3">
+                <!-- Proposal Details -->
+                <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6 mb-6">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-4">Détails de la Proposition</h3>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="text-sm font-medium text-gray-500">Projet</label>
+                            <p class="text-sm text-gray-900 mt-1">
+                                <a href="{% url 'project_detail' proposal.project.id %}" class="text-primary hover:text-secondary font-medium">
+                                {{ proposal.project.title }}
+                            </a>
+                            </p>
+                        </div>
+                        
+                        <div>
+                            <label class="text-sm font-medium text-gray-500">Freelance</label>
+                            <p class="text-sm text-gray-900 mt-1">
+                                <a href="{% url 'freelancer_detail' proposal.freelancer.id %}" class="text-primary hover:text-secondary font-medium">
+                                {{ proposal.freelancer.user.get_full_name|default:proposal.freelancer.user.username }}
+                            </a>
+                            </p>
+                        </div>
+                        
+                        <div>
+                            <label class="text-sm font-medium text-gray-500">Prix proposé</label>
+                            <p class="text-lg font-semibold text-gray-900 mt-1">{{ proposal.price }}€</p>
+                    </div>
+                        
+                        <div>
+                            <label class="text-sm font-medium text-gray-500">Délai de livraison</label>
+                            <p class="text-sm text-gray-900 mt-1">{{ proposal.delivery_time }} jours</p>
+                    </div>
+                        
+                        <div>
+                            <label class="text-sm font-medium text-gray-500">Date de soumission</label>
+                            <p class="text-sm text-gray-900 mt-1">{{ proposal.created_at|date:"d/m/Y à H:i" }}</p>
+                        </div>
+                        
+                        <div>
+                            <label class="text-sm font-medium text-gray-500">Statut</label>
+                            <div class="mt-1">
+                                <span class="px-3 py-1 rounded-full text-xs font-medium
+                                    {% if proposal.admin_validation == 'pending' %}bg-yellow-100 text-yellow-800
+                                    {% elif proposal.admin_validation == 'approved' %}bg-green-100 text-green-800
+                                    {% else %}bg-red-100 text-red-800{% endif %}">
+                                    {% if proposal.admin_validation == 'pending' %}En attente
+                                    {% elif proposal.admin_validation == 'approved' %}Approuvée
+                                    {% else %}Rejetée{% endif %}
+                                </span>
+                    </div>
+                        </div>
+                    </div>
+                    
+                    {% if proposal.admin_comment %}
+                    <div class="mt-6 pt-6 border-t border-gray-200">
+                        <label class="text-sm font-medium text-gray-500">Commentaire admin</label>
+                        <p class="text-sm text-gray-900 mt-1">{{ proposal.admin_comment }}</p>
+                    </div>
+                    {% endif %}
+                </div>
+
+                <!-- Proposal Message -->
+                <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6 mb-6">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-4">Message du Freelance</h3>
+                    <div class="prose max-w-none">
+                        {{ proposal.message|linebreaks }}
+                </div>
+            </div>
+
+                <!-- Additional Info -->
+                {% if proposal.additional_info %}
+                <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6 mb-6">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-4">Informations supplémentaires</h3>
+                    <div class="prose max-w-none">
+                        {{ proposal.additional_info|linebreaks }}
+                    </div>
+                </div>
+                {% endif %}
+
+                <!-- Attachments -->
+                {% if proposal.attachments %}
+                <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-4">Pièces jointes</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        {% for attachment in proposal.attachments %}
+                        <div class="flex items-center p-3 bg-gray-50 rounded-lg">
+                            <i class="ri-attachment-2 text-gray-400 mr-3"></i>
+                            <span class="text-sm text-gray-700">{{ attachment.name }}</span>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endif %}
+        </div>
+
+            <!-- Sidebar -->
+            <div class="lg:w-1/3">
+                <!-- Validation Form -->
+            {% if proposal.admin_validation == 'pending' %}
+                <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6 mb-6">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-4">
+                        <i class="ri-check-line text-green-500 mr-2"></i>Valider la Proposition
+                    </h3>
+                    
+                    <form method="post" action="{% url 'admin_validate_proposal' proposal.id %}">
+                        {% csrf_token %}
+                        
+                        <div class="mb-4">
+                            <label for="admin_validation" class="block text-sm font-medium text-gray-700 mb-2">
+                                Décision <span class="text-red-500">*</span>
+                            </label>
+                            <select id="admin_validation" 
+                                    name="admin_validation" 
+                                    required
+                                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary">
+                                <option value="" selected disabled>Sélectionnez une décision</option>
+                                <option value="approved">Approuver</option>
+                                <option value="rejected">Rejeter</option>
+                            </select>
+                        </div>
+                        
+                        <div class="mb-6">
+                            <label for="admin_comment" class="block text-sm font-medium text-gray-700 mb-2">
+                                Commentaire (optionnel)
+                            </label>
+                            <textarea id="admin_comment" 
+                                      name="admin_comment" 
+                                      rows="4"
+                                      class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary resize-none"
+                                      placeholder="Ajoutez un commentaire expliquant votre décision..."></textarea>
+                        </div>
+                        
+                        <div class="space-y-3">
+                            <button type="submit" 
+                                    class="w-full bg-green-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-green-700 transition-colors">
+                                <i class="ri-check-line mr-2"></i>Soumettre la décision
+                            </button>
+                        </div>
+                    </form>
+                </div>
+                {% else %}
+                <div class="bg-gray-50 rounded-lg p-6 mb-6">
+                    <div class="text-center">
+                        <i class="ri-check-double-line text-3xl text-gray-400 mb-4"></i>
+                        <h3 class="text-lg font-semibold text-gray-900 mb-2">Proposition traitée</h3>
+                        <p class="text-gray-600">Cette proposition a déjà été validée.</p>
+            </div>
+                </div>
+                {% endif %}
+
+                <!-- Freelancer Info -->
+                <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6 mb-6">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-4">Informations Freelance</h3>
+                    
+                    <div class="text-center mb-6">
+                        {% if proposal.freelancer.profile_picture %}
+                        <img src="{{ proposal.freelancer.profile_picture.url }}" 
+                             alt="Photo de profil" 
+                             class="w-20 h-20 rounded-full mx-auto mb-4 object-cover">
+                        {% else %}
+                        <div class="w-20 h-20 bg-gray-200 rounded-full mx-auto mb-4 flex items-center justify-center">
+                            <i class="ri-user-line text-gray-400 text-2xl"></i>
+                        </div>
+                        {% endif %}
+                        
+                        <h4 class="text-lg font-semibold text-gray-900">
+                            {{ proposal.freelancer.user.get_full_name|default:proposal.freelancer.user.username }}
+                        </h4>
+                        
+                        <div class="flex items-center justify-center space-x-1 mb-2">
+                            {% for i in "12345" %}
+                                {% if forloop.counter <= proposal.freelancer.rating %}
+                                    <i class="ri-star-fill text-yellow-400"></i>
+                                {% else %}
+                                    <i class="ri-star-line text-gray-300"></i>
+                                {% endif %}
+                            {% endfor %}
+                            <span class="text-sm text-gray-600 ml-1">({{ proposal.freelancer.total_reviews }})</span>
+                        </div>
+                    </div>
+                    
+                    <div class="space-y-3">
+                        <div class="flex justify-between">
+                            <span class="text-sm text-gray-500">Membre depuis</span>
+                            <span class="text-sm text-gray-900">{{ proposal.freelancer.user.date_joined|date:"M Y" }}</span>
+                        </div>
+                        
+                        <div class="flex justify-between">
+                            <span class="text-sm text-gray-500">Propositions</span>
+                            <span class="text-sm text-gray-900">{{ proposal.freelancer.proposal_set.count }}</span>
+                        </div>
+                        
+                        <div class="flex justify-between">
+                            <span class="text-sm text-gray-500">Projets terminés</span>
+                            <span class="text-sm text-gray-900">{{ proposal.freelancer.completed_projects }}</span>
+                        </div>
+                        
+                        {% if proposal.freelancer.location %}
+                        <div class="flex justify-between">
+                            <span class="text-sm text-gray-500">Localisation</span>
+                            <span class="text-sm text-gray-900">{{ proposal.freelancer.location }}</span>
+                        </div>
+                        {% endif %}
+                        
+                        <div class="flex justify-between">
+                            <span class="text-sm text-gray-500">Taux horaire</span>
+                            <span class="text-sm text-gray-900">{{ proposal.freelancer.hourly_rate }}€/h</span>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-6">
+                        <a href="{% url 'freelancer_detail' proposal.freelancer.id %}" 
+                           class="w-full bg-primary text-white px-4 py-2 rounded-lg font-medium hover:bg-secondary transition-colors inline-flex items-center justify-center">
+                            <i class="ri-user-line mr-2"></i>Voir le profil complet
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Project Info -->
+                <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-4">Informations Projet</h3>
+                    
+                    <div class="space-y-3">
+                        <div>
+                            <label class="text-sm font-medium text-gray-500">Budget</label>
+                            <p class="text-sm text-gray-900">{{ proposal.project.get_budget_display }}</p>
+                        </div>
+                        
+                        <div>
+                            <label class="text-sm font-medium text-gray-500">Catégorie</label>
+                            <p class="text-sm text-gray-900">{{ proposal.project.category.name }}</p>
+                        </div>
+                        
+                        <div>
+                            <label class="text-sm font-medium text-gray-500">Date limite</label>
+                            <p class="text-sm text-gray-900">{{ proposal.project.deadline|date:"d/m/Y" }}</p>
+                        </div>
+                        
+                        <div>
+                            <label class="text-sm font-medium text-gray-500">Statut</label>
+                            <p class="text-sm text-gray-900">{{ proposal.project.get_status_display }}</p>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-6">
+                        <a href="{% url 'project_detail' proposal.project.id %}" 
+                           class="w-full bg-gray-100 text-gray-700 px-4 py-2 rounded-lg font-medium hover:bg-gray-200 transition-colors inline-flex items-center justify-center">
+                            <i class="ri-briefcase-line mr-2"></i>Voir le projet
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

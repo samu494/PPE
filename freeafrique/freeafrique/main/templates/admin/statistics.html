@@ -1,0 +1,194 @@
+{% extends 'base.html' %}
+{% block title %}Statistiques Admin - FreeAfrique{% endblock %}
+
+{% block content %}
+<div class="min-h-screen bg-gray-50">
+    <!-- Header -->
+    <div class="bg-white shadow">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center py-6">
+                <div>
+                    <h1 class="text-3xl font-bold text-gray-900">Statistiques détaillées</h1>
+                    <p class="mt-2 text-gray-600">Analyse approfondie de la plateforme FreeAfrique</p>
+                </div>
+                <div class="flex space-x-4">
+                    <a href="{% url 'admin_dashboard' %}" class="bg-primary text-white px-4 py-2 rounded-lg hover:bg-secondary transition-colors">
+                        <i class="ri-arrow-left-line mr-2"></i>Retour au tableau de bord
+                    </a>
+                    <a href="{% url 'admin:index' %}" class="bg-gray-600 text-white px-4 py-2 rounded-lg hover:bg-gray-700 transition-colors">
+                        <i class="ri-settings-line mr-2"></i>Admin Django
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <!-- Statistiques mensuelles -->
+        <div class="bg-white rounded-lg shadow mb-8">
+            <div class="px-6 py-4 border-b border-gray-200">
+                <h3 class="text-lg font-semibold text-gray-900">Évolution mensuelle</h3>
+            </div>
+            <div class="p-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <div class="text-center">
+                        <h4 class="text-sm font-medium text-gray-600 mb-2">Nouveaux freelances</h4>
+                        <div class="space-y-2">
+                            {% for count in freelancer_counts %}
+                            <div class="flex justify-between items-center">
+                                <span class="text-xs text-gray-500">{{ forloop.counter }} mois</span>
+                                <span class="text-sm font-medium">{{ count }}</span>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    
+                    <div class="text-center">
+                        <h4 class="text-sm font-medium text-gray-600 mb-2">Nouveaux clients</h4>
+                        <div class="space-y-2">
+                            {% for count in client_counts %}
+                            <div class="flex justify-between items-center">
+                                <span class="text-xs text-gray-500">{{ forloop.counter }} mois</span>
+                                <span class="text-sm font-medium">{{ count }}</span>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    
+                    <div class="text-center">
+                        <h4 class="text-sm font-medium text-gray-600 mb-2">Nouveaux projets</h4>
+                        <div class="space-y-2">
+                            {% for count in project_counts %}
+                            <div class="flex justify-between items-center">
+                                <span class="text-xs text-gray-500">{{ forloop.counter }} mois</span>
+                                <span class="text-sm font-medium">{{ count }}</span>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    
+                    <div class="text-center">
+                        <h4 class="text-sm font-medium text-gray-600 mb-2">Nouvelles propositions</h4>
+                        <div class="space-y-2">
+                            {% for count in proposal_counts %}
+                            <div class="flex justify-between items-center">
+                                <span class="text-xs text-gray-500">{{ forloop.counter }} mois</span>
+                                <span class="text-sm font-medium">{{ count }}</span>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Statistiques par catégorie -->
+        <div class="bg-white rounded-lg shadow mb-8">
+            <div class="px-6 py-4 border-b border-gray-200">
+                <h3 class="text-lg font-semibold text-gray-900">Statistiques par catégorie</h3>
+            </div>
+            <div class="p-6">
+                <div class="space-y-4">
+                    {% for category in category_stats %}
+                    <div class="flex justify-between items-center p-4 bg-gray-50 rounded-lg">
+                        <div class="flex items-center">
+                            <div class="w-8 h-8 rounded-full" style="background-color: {{ category.color }}"></div>
+                            <div class="ml-3">
+                                <h4 class="font-medium text-gray-900">{{ category.name }}</h4>
+                                <p class="text-sm text-gray-500">{{ category.description }}</p>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <p class="text-sm font-medium text-gray-900">{{ category.project_count }} projets</p>
+                            <p class="text-xs text-gray-500">{{ category.freelancer_count }} freelances</p>
+                        </div>
+                    </div>
+                    {% empty %}
+                    <p class="text-gray-500 text-center py-8">Aucune catégorie disponible</p>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+        <!-- Statistiques de paiement -->
+        <div class="bg-white rounded-lg shadow mb-8">
+            <div class="px-6 py-4 border-b border-gray-200">
+                <h3 class="text-lg font-semibold text-gray-900">Statistiques de paiement</h3>
+            </div>
+            <div class="p-6">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="text-center">
+                        <h4 class="text-sm font-medium text-gray-600 mb-2">Méthodes de paiement</h4>
+                        <div class="space-y-2">
+                            {% for method in payment_methods %}
+                            <div class="flex justify-between items-center">
+                                <span class="text-sm text-gray-700">{{ method.name }}</span>
+                                <span class="text-sm font-medium">{{ method.count }}</span>
+                            </div>
+                            {% empty %}
+                            <p class="text-gray-500 text-sm">Aucune donnée</p>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    
+                    <div class="text-center">
+                        <h4 class="text-sm font-medium text-gray-600 mb-2">Statuts de paiement</h4>
+                        <div class="space-y-2">
+                            {% for status in payment_statuses %}
+                            <div class="flex justify-between items-center">
+                                <span class="text-sm text-gray-700">{{ status.status }}</span>
+                                <span class="text-sm font-medium">{{ status.count }}</span>
+                            </div>
+                            {% empty %}
+                            <p class="text-gray-500 text-sm">Aucune donnée</p>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    
+                    <div class="text-center">
+                        <h4 class="text-sm font-medium text-gray-600 mb-2">Montants moyens</h4>
+                        <div class="space-y-2">
+                            <div class="flex justify-between items-center">
+                                <span class="text-sm text-gray-700">Paiement moyen</span>
+                                <span class="text-sm font-medium">{{ avg_payment_amount }}€</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-sm text-gray-700">Total des paiements</span>
+                                <span class="text-sm font-medium">{{ total_payment_amount }}€</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Distribution des avis -->
+        <div class="bg-white rounded-lg shadow">
+            <div class="px-6 py-4 border-b border-gray-200">
+                <h3 class="text-lg font-semibold text-gray-900">Distribution des avis</h3>
+            </div>
+            <div class="p-6">
+                <div class="space-y-4">
+                    {% for rating in review_distribution %}
+                    <div class="flex items-center">
+                        <div class="flex items-center w-16">
+                            <span class="text-sm text-gray-600">{{ rating.rating }} étoiles</span>
+                        </div>
+                        <div class="flex-1 mx-4">
+                            <div class="w-full bg-gray-200 rounded-full h-2">
+                                <div class="bg-yellow-400 h-2 rounded-full" style="width: {{ rating.percentage }}%"></div>
+                            </div>
+                        </div>
+                        <div class="w-16 text-right">
+                            <span class="text-sm font-medium">{{ rating.count }}</span>
+                        </div>
+                    </div>
+                    {% empty %}
+                    <p class="text-gray-500 text-center py-8">Aucun avis disponible</p>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

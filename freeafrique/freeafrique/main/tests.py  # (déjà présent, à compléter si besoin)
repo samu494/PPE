@@ -1,0 +1,17 @@
+from django.test import TestCase
+from .models import Category, Freelancer
+from django.utils import timezone
+
+class CategoryModelTest(TestCase):
+    def setUp(self):
+        self.category = Category.objects.create(name='Test Category', created_at=timezone.now())
+
+    def test_created_at_field(self):
+        self.assertIsNotNone(self.category.created_at)
+
+class FreelancerModelTest(TestCase):
+    def setUp(self):
+        self.freelancer = Freelancer.objects.create(name='Test Freelancer', description='Test Description')
+
+    def test_description_field(self):
+        self.assertEqual(self.freelancer.description, 'Test Description')

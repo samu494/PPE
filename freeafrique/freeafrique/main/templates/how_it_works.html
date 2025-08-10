@@ -1,0 +1,358 @@
+{% extends 'base.html' %}
+{% block title %}Comment ça marche - FreeAfrique{% endblock %}
+
+{% block content %}
+<!-- Header Section -->
+<section class="bg-gradient-to-r from-primary to-secondary text-white py-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center">
+            <h1 class="text-4xl md:text-5xl font-bold mb-6">
+                Comment ça marche ?
+            </h1>
+            <p class="text-xl text-blue-100 max-w-3xl mx-auto">
+                Découvrez comment FreeAfrique connecte les talents africains aux opportunités mondiales
+            </p>
+        </div>
+    </div>
+</section>
+
+<!-- Navigation -->
+<section class="bg-white border-b border-gray-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-center space-x-8 py-4">
+            <a href="#clients" class="text-gray-600 hover:text-primary font-medium transition-colors">
+                <i class="ri-briefcase-line mr-2"></i>Pour les Clients
+            </a>
+            <a href="#freelancers" class="text-gray-600 hover:text-primary font-medium transition-colors">
+                <i class="ri-user-star-line mr-2"></i>Pour les Freelances
+            </a>
+            <a href="#features" class="text-gray-600 hover:text-primary font-medium transition-colors">
+                <i class="ri-star-line mr-2"></i>Fonctionnalités
+            </a>
+            <a href="#faq" class="text-gray-600 hover:text-primary font-medium transition-colors">
+                <i class="ri-question-line mr-2"></i>FAQ
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Section Clients -->
+<section id="clients" class="py-16 bg-gray-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl font-bold text-gray-900 mb-4">
+                Pour les Clients
+            </h2>
+            <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+                Trouvez le freelance parfait pour réaliser vos projets
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <!-- Étape 1 -->
+            <div class="bg-white rounded-xl shadow-lg p-6 text-center">
+                <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <span class="text-2xl font-bold text-blue-600">1</span>
+                </div>
+                <h3 class="text-lg font-semibold text-gray-900 mb-3">Créez votre compte</h3>
+                <p class="text-gray-600">
+                    Inscrivez-vous gratuitement en tant que client et complétez votre profil
+                </p>
+            </div>
+
+            <!-- Étape 2 -->
+            <div class="bg-white rounded-xl shadow-lg p-6 text-center">
+                <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <span class="text-2xl font-bold text-blue-600">2</span>
+                </div>
+                <h3 class="text-lg font-semibold text-gray-900 mb-3">Publiez votre projet</h3>
+                <p class="text-gray-600">
+                    Décrivez vos besoins, budget et délais. Notre équipe valide votre projet
+                </p>
+            </div>
+
+            <!-- Étape 3 -->
+            <div class="bg-white rounded-xl shadow-lg p-6 text-center">
+                <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <span class="text-2xl font-bold text-blue-600">3</span>
+                </div>
+                <h3 class="text-lg font-semibold text-gray-900 mb-3">Recevez des propositions</h3>
+                <p class="text-gray-600">
+                    Les freelances qualifiés vous envoient leurs propositions détaillées
+                </p>
+            </div>
+
+            <!-- Étape 4 -->
+            <div class="bg-white rounded-xl shadow-lg p-6 text-center">
+                <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <span class="text-2xl font-bold text-blue-600">4</span>
+                </div>
+                <h3 class="text-lg font-semibold text-gray-900 mb-3">Choisissez et collaborez</h3>
+                <p class="text-gray-600">
+                    Sélectionnez le meilleur freelance et suivez l'avancement en temps réel
+                </p>
+            </div>
+        </div>
+
+        <!-- CTA Clients -->
+        <div class="text-center mt-12">
+            <a href="{% url 'signup_client' %}" class="bg-blue-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors inline-flex items-center">
+                <i class="ri-briefcase-line mr-2"></i>
+                Commencer un projet
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Section Freelances -->
+<section id="freelancers" class="py-16 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl font-bold text-gray-900 mb-4">
+                Pour les Freelances
+            </h2>
+            <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+                Proposez vos services et trouvez des projets passionnants
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <!-- Étape 1 -->
+            <div class="bg-white rounded-xl shadow-lg p-6 text-center border border-gray-200">
+                <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <span class="text-2xl font-bold text-green-600">1</span>
+                </div>
+                <h3 class="text-lg font-semibold text-gray-900 mb-3">Créez votre profil</h3>
+                <p class="text-gray-600">
+                    Inscrivez-vous et présentez vos compétences, expérience et portfolio
+                </p>
+            </div>
+
+            <!-- Étape 2 -->
+            <div class="bg-white rounded-xl shadow-lg p-6 text-center border border-gray-200">
+                <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <span class="text-2xl font-bold text-green-600">2</span>
+                </div>
+                <h3 class="text-lg font-semibold text-gray-900 mb-3">Trouvez des projets</h3>
+                <p class="text-gray-600">
+                    Parcourez les projets disponibles et filtrez selon vos compétences
+                </p>
+            </div>
+
+            <!-- Étape 3 -->
+            <div class="bg-white rounded-xl shadow-lg p-6 text-center border border-gray-200">
+                <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <span class="text-2xl font-bold text-green-600">3</span>
+                </div>
+                <h3 class="text-lg font-semibold text-gray-900 mb-3">Proposez vos services</h3>
+                <p class="text-gray-600">
+                    Envoyez des propositions détaillées avec votre approche et tarifs
+                </p>
+            </div>
+
+            <!-- Étape 4 -->
+            <div class="bg-white rounded-xl shadow-lg p-6 text-center border border-gray-200">
+                <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <span class="text-2xl font-bold text-green-600">4</span>
+                </div>
+                <h3 class="text-lg font-semibold text-gray-900 mb-3">Collaborez et gagnez</h3>
+                <p class="text-gray-600">
+                    Travaillez sur le projet sélectionné et recevez vos paiements sécurisés
+                </p>
+            </div>
+        </div>
+
+        <!-- CTA Freelances -->
+        <div class="text-center mt-12">
+            <a href="{% url 'signup_freelancer' %}" class="bg-green-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-green-700 transition-colors inline-flex items-center">
+                <i class="ri-user-star-line mr-2"></i>
+                Devenir Freelance
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Section Fonctionnalités -->
+<section id="features" class="py-16 bg-gray-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl font-bold text-gray-900 mb-4">
+                Fonctionnalités principales
+            </h2>
+            <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+                Tout ce dont vous avez besoin pour réussir sur FreeAfrique
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Messagerie -->
+            <div class="bg-white rounded-xl shadow-lg p-6">
+                <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-4">
+                    <i class="ri-message-3-line text-blue-600 text-xl"></i>
+                </div>
+                <h3 class="text-lg font-semibold text-gray-900 mb-3">Messagerie intégrée</h3>
+                <p class="text-gray-600">
+                    Communiquez directement avec vos clients ou freelances en temps réel
+                </p>
+            </div>
+
+            <!-- Paiements sécurisés -->
+            <div class="bg-white rounded-xl shadow-lg p-6">
+                <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mb-4">
+                    <i class="ri-shield-check-line text-green-600 text-xl"></i>
+                </div>
+                <h3 class="text-lg font-semibold text-gray-900 mb-3">Paiements sécurisés</h3>
+                <p class="text-gray-600">
+                    Paiements sécurisés avec escrow et protection des deux parties
+                </p>
+            </div>
+
+            <!-- Suivi de projet -->
+            <div class="bg-white rounded-xl shadow-lg p-6">
+                <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mb-4">
+                    <i class="ri-time-line text-purple-600 text-xl"></i>
+                </div>
+                <h3 class="text-lg font-semibold text-gray-900 mb-3">Suivi de projet</h3>
+                <p class="text-gray-600">
+                    Suivez l'avancement de vos projets avec des outils de gestion intégrés
+                </p>
+            </div>
+
+            <!-- Validation admin -->
+            <div class="bg-white rounded-xl shadow-lg p-6">
+                <div class="w-12 h-12 bg-yellow-100 rounded-lg flex items-center justify-center mb-4">
+                    <i class="ri-admin-line text-yellow-600 text-xl"></i>
+                </div>
+                <h3 class="text-lg font-semibold text-gray-900 mb-3">Validation qualité</h3>
+                <p class="text-gray-600">
+                    Tous les projets et freelances sont validés par notre équipe
+                </p>
+            </div>
+
+            <!-- Support client -->
+            <div class="bg-white rounded-xl shadow-lg p-6">
+                <div class="w-12 h-12 bg-red-100 rounded-lg flex items-center justify-center mb-4">
+                    <i class="ri-customer-service-2-line text-red-600 text-xl"></i>
+                </div>
+                <h3 class="text-lg font-semibold text-gray-900 mb-3">Support 24/7</h3>
+                <p class="text-gray-600">
+                    Assistance disponible à tout moment pour résoudre vos problèmes
+                </p>
+            </div>
+
+            <!-- Paiements multiples -->
+            <div class="bg-white rounded-xl shadow-lg p-6">
+                <div class="w-12 h-12 bg-indigo-100 rounded-lg flex items-center justify-center mb-4">
+                    <i class="ri-bank-card-line text-indigo-600 text-xl"></i>
+                </div>
+                <h3 class="text-lg font-semibold text-gray-900 mb-3">Paiements multiples</h3>
+                <p class="text-gray-600">
+                    Cartes, PayPal, Mobile Money, Crypto et plus selon votre pays
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Section FAQ -->
+<section id="faq" class="py-16 bg-white">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl font-bold text-gray-900 mb-4">
+                Questions fréquentes
+            </h2>
+            <p class="text-xl text-gray-600">
+                Tout ce que vous devez savoir sur FreeAfrique
+            </p>
+        </div>
+
+        <div class="space-y-6">
+            <!-- FAQ 1 -->
+            <div class="bg-gray-50 rounded-lg p-6">
+                <h3 class="text-lg font-semibold text-gray-900 mb-3">
+                    Comment fonctionne la validation des projets ?
+                </h3>
+                <p class="text-gray-600">
+                    Tous les projets publiés sont examinés par notre équipe dans les 24h. Nous vérifions la faisabilité, 
+                    la clarté des exigences et la pertinence du budget avant publication.
+                </p>
+            </div>
+
+            <!-- FAQ 2 -->
+            <div class="bg-gray-50 rounded-lg p-6">
+                <h3 class="text-lg font-semibold text-gray-900 mb-3">
+                    Comment sont sécurisés les paiements ?
+                </h3>
+                <p class="text-gray-600">
+                    Nous utilisons un système d'escrow : l'argent est détenu par FreeAfrique jusqu'à la validation 
+                    du projet par le client. Les paiements sont traités par des passerelles sécurisées.
+                </p>
+            </div>
+
+            <!-- FAQ 3 -->
+            <div class="bg-gray-50 rounded-lg p-6">
+                <h3 class="text-lg font-semibold text-gray-900 mb-3">
+                    Quels sont les frais de la plateforme ?
+                </h3>
+                <p class="text-gray-600">
+                    FreeAfrique prélève 10% sur les transactions réussies. Cette commission couvre les frais de 
+                    traitement, le support client et le développement de la plateforme.
+                </p>
+            </div>
+
+            <!-- FAQ 4 -->
+            <div class="bg-gray-50 rounded-lg p-6">
+                <h3 class="text-lg font-semibold text-gray-900 mb-3">
+                    Comment contacter le support client ?
+                </h3>
+                <p class="text-gray-600">
+                    Vous pouvez créer un ticket de support depuis votre tableau de bord ou nous contacter directement 
+                    via l'email support@freeafrique.com. Notre équipe répond sous 24h.
+                </p>
+            </div>
+
+            <!-- FAQ 5 -->
+            <div class="bg-gray-50 rounded-lg p-6">
+                <h3 class="text-lg font-semibold text-gray-900 mb-3">
+                    Quels types de projets sont acceptés ?
+                </h3>
+                <p class="text-gray-600">
+                    Nous acceptons tous types de projets : développement web, design, rédaction, marketing, 
+                    traduction, etc. L'important est que le projet soit légal et éthique.
+                </p>
+            </div>
+        </div>
+
+        <!-- CTA Support -->
+        <div class="text-center mt-12">
+            <a href="{% url 'support_tickets' %}" class="bg-primary text-white px-8 py-3 rounded-lg font-semibold hover:bg-secondary transition-colors inline-flex items-center">
+                <i class="ri-customer-service-2-line mr-2"></i>
+                Contacter le support
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Section CTA Final -->
+<section class="py-16 bg-gradient-to-r from-primary to-secondary text-white">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <h2 class="text-3xl font-bold mb-6">
+            Prêt à commencer ?
+        </h2>
+        <p class="text-xl text-blue-100 mb-8">
+            Rejoignez la communauté FreeAfrique et découvrez de nouvelles opportunités
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+            <a href="{% url 'role_selection' %}" class="bg-white text-primary px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors">
+                <i class="ri-user-add-line mr-2"></i>
+                Commencer maintenant
+            </a>
+            <a href="{% url 'home' %}" class="border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-primary transition-colors">
+                <i class="ri-arrow-left-line mr-2"></i>
+                Retour à l'accueil
+            </a>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
