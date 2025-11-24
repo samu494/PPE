@@ -1,0 +1,549 @@
+{% extends 'base.html' %}
+{% block title %}FreeAfrique - Plateforme de Freelance Africaine{% endblock %}
+
+{% block content %}
+<!-- Hero Section avec Animation -->
+<section class="hero-section relative bg-gradient-to-r from-primary to-secondary text-white py-20 overflow-hidden">
+    <div class="absolute inset-0 bg-black opacity-20"></div>
+    <div class="absolute inset-0">
+        <div class="absolute top-0 left-0 w-72 h-72 bg-white opacity-10 rounded-full -translate-x-1/2 -translate-y-1/2"></div>
+        <div class="absolute top-0 right-0 w-96 h-96 bg-white opacity-10 rounded-full translate-x-1/2 -translate-y-1/2"></div>
+        <div class="absolute bottom-0 left-1/4 w-64 h-64 bg-white opacity-10 rounded-full translate-x-1/2 translate-y-1/2"></div>
+    </div>
+    
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div class="text-center lg:text-left">
+                <h1 class="text-4xl md:text-6xl font-bold mb-6 leading-tight">
+                    Connectez les <span class="text-yellow-300">Talents</span><br>
+                    aux <span class="text-yellow-300">Opportunités</span>
+                </h1>
+                <p class="text-xl md:text-2xl mb-8 text-blue-100">
+                    La première plateforme de freelance africaine qui connecte talents locaux et opportunités mondiales
+                </p>
+                
+                <!-- Statistiques en temps réel -->
+                <div class="grid grid-cols-3 gap-4 mb-8">
+                    <div class="text-center">
+                        <div class="text-2xl font-bold" x-data="{ count: 0 }" x-init="
+                            $watch('count', value => {
+                                if (value < {{ stats.total_freelancers }}) {
+                                    setTimeout(() => count++, 50);
+                                }
+                            });
+                            count = 0;
+                        " x-text="count"></div>
+                        <div class="text-sm text-blue-200">Freelances</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-2xl font-bold" x-data="{ count: 0 }" x-init="
+                            $watch('count', value => {
+                                if (value < {{ stats.total_projects }}) {
+                                    setTimeout(() => count++, 50);
+                                }
+                            });
+                            count = 0;
+                        " x-text="count"></div>
+                        <div class="text-sm text-blue-200">Projets</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-2xl font-bold" x-data="{ count: 0 }" x-init="
+                            $watch('count', value => {
+                                if (value < {{ stats.completed_projects }}) {
+                                    setTimeout(() => count++, 50);
+                                }
+                            });
+                            count = 0;
+                        " x-text="count"></div>
+                        <div class="text-sm text-blue-200">Terminés</div>
+                    </div>
+                </div>
+                
+                <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+                    <a href="{% url 'role_selection' %}" class="bg-white text-primary px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors text-center">
+                        <i class="ri-user-add-line mr-2"></i>Commencer maintenant
+                    </a>
+                    <a href="{% url 'how_it_works' %}" class="border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-primary transition-colors text-center">
+                        <i class="ri-question-line mr-2"></i>Comment ça marche
+                    </a>
+                </div>
+                
+                <!-- Support Client -->
+                <div class="mt-6 text-center lg:text-left">
+                    <p class="text-blue-100 mb-3">Besoin d'aide ? Notre équipe support est là pour vous</p>
+                    <a href="{% url 'support_tickets' %}" class="inline-flex items-center text-blue-200 hover:text-white transition-colors">
+                        <i class="ri-customer-service-2-line mr-2"></i>Support Client
+                        <i class="ri-arrow-right-line ml-2"></i>
+                    </a>
+                </div>
+            </div>
+            
+            <div class="hidden lg:block">
+                <!-- Animation ou illustration -->
+                <div class="relative">
+                    <div class="w-96 h-96 mx-auto bg-white bg-opacity-10 rounded-full flex items-center justify-center">
+                        <i class="ri-global-line text-8xl text-white opacity-50"></i>
+                    </div>
+                    <!-- Éléments flottants -->
+                    <div class="absolute top-10 left-10 w-16 h-16 bg-yellow-300 rounded-full animate-bounce"></div>
+                    <div class="absolute top-20 right-20 w-12 h-12 bg-green-300 rounded-full animate-pulse"></div>
+                    <div class="absolute bottom-20 left-20 w-14 h-14 bg-red-300 rounded-full animate-bounce"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Catégories Populaires -->
+<section class="py-16 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl font-bold text-gray-900 mb-4">Catégories Populaires</h2>
+            <p class="text-lg text-gray-600">Découvrez les domaines les plus demandés</p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {% for category in categories %}
+            <div class="group bg-white border border-gray-200 rounded-xl p-6 hover:shadow-lg transition-all duration-300 hover:border-primary">
+                <div class="flex items-center space-x-4">
+                    <div class="w-12 h-12 bg-gradient-to-r from-primary to-secondary rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform">
+                        <i class="{{ category.icon }} text-white text-xl"></i>
+                    </div>
+                    <div class="flex-1">
+                        <h3 class="text-lg font-semibold text-gray-900 group-hover:text-primary transition-colors">
+                            {{ category.name }}
+                        </h3>
+                        <p class="text-sm text-gray-600">{{ category.description|truncatewords:10 }}</p>
+                        <div class="flex items-center space-x-4 mt-2 text-xs text-gray-500">
+                            <span><i class="ri-user-line mr-1"></i>{{ category.freelancer_count }} freelances</span>
+                            <span><i class="ri-briefcase-line mr-1"></i>{{ category.project_count }} projets</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        
+        <div class="text-center mt-8">
+            <a href="{% url 'projects_list' %}" class="inline-flex items-center text-primary hover:text-secondary font-semibold">
+                Voir tous les projets <i class="ri-arrow-right-line ml-2"></i>
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Section Visiteurs Non Connectés -->
+{% if not user.is_authenticated %}
+<section class="py-16 bg-gradient-to-br from-blue-50 to-indigo-100">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl font-bold text-gray-900 mb-4">Nouveau sur FreeAfrique ?</h2>
+            <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+                Découvrez comment notre plateforme peut vous aider à réussir
+            </p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+            <!-- Pour les Clients -->
+            <div class="bg-white rounded-2xl shadow-lg p-8">
+                <div class="text-center mb-6">
+                    <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="ri-briefcase-line text-2xl text-blue-600"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-3">Vous êtes un Client ?</h3>
+                    <p class="text-gray-600 mb-6">
+                        Trouvez le freelance parfait pour réaliser vos projets
+                    </p>
+                </div>
+                
+                <div class="space-y-3 mb-6">
+                    <div class="flex items-center">
+                        <i class="ri-check-line text-green-500 mr-3"></i>
+                        <span class="text-gray-700">Publiez vos projets gratuitement</span>
+                    </div>
+                    <div class="flex items-center">
+                        <i class="ri-check-line text-green-500 mr-3"></i>
+                        <span class="text-gray-700">Recevez des propositions qualifiées</span>
+                    </div>
+                    <div class="flex items-center">
+                        <i class="ri-check-line text-green-500 mr-3"></i>
+                        <span class="text-gray-700">Paiements sécurisés avec escrow</span>
+                    </div>
+                </div>
+                
+                <a href="{% url 'signup_client' %}" class="w-full bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors inline-block text-center">
+                    <i class="ri-user-add-line mr-2"></i>
+                    Créer un compte Client
+                </a>
+            </div>
+            
+            <!-- Pour les Freelances -->
+            <div class="bg-white rounded-2xl shadow-lg p-8">
+                <div class="text-center mb-6">
+                    <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="ri-user-star-line text-2xl text-green-600"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-3">Vous êtes un Freelance ?</h3>
+                    <p class="text-gray-600 mb-6">
+                        Proposez vos services et trouvez des projets passionnants
+                    </p>
+                </div>
+                
+                <div class="space-y-3 mb-6">
+                    <div class="flex items-center">
+                        <i class="ri-check-line text-green-500 mr-3"></i>
+                        <span class="text-gray-700">Créez votre profil professionnel</span>
+                    </div>
+                    <div class="flex items-center">
+                        <i class="ri-check-line text-green-500 mr-3"></i>
+                        <span class="text-gray-700">Trouvez des projets qui vous correspondent</span>
+                    </div>
+                    <div class="flex items-center">
+                        <i class="ri-check-line text-green-500 mr-3"></i>
+                        <span class="text-gray-700">Gagnez de l'argent en toute sécurité</span>
+                    </div>
+                </div>
+                
+                <a href="{% url 'signup_freelancer' %}" class="w-full bg-green-600 text-white py-3 rounded-lg font-semibold hover:bg-green-700 transition-colors inline-block text-center">
+                    <i class="ri-user-add-line mr-2"></i>
+                    Créer un compte Freelance
+                </a>
+            </div>
+        </div>
+        
+        <div class="text-center">
+            <a href="{% url 'how_it_works' %}" class="inline-flex items-center text-primary hover:text-secondary font-semibold">
+                <i class="ri-question-line mr-2"></i>
+                En savoir plus sur FreeAfrique
+            </a>
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<!-- Comment ça marche -->
+<section id="how-it-works" class="py-16 bg-gray-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl font-bold text-gray-900 mb-4">Comment ça marche</h2>
+            <p class="text-lg text-gray-600">Simple, rapide et efficace</p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <!-- Étape 1 -->
+            <div class="text-center group">
+                <div class="w-20 h-20 bg-primary text-white rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform">
+                    <span class="text-2xl font-bold">1</span>
+                </div>
+                <h3 class="text-xl font-semibold text-gray-900 mb-4">Publiez votre projet</h3>
+                <p class="text-gray-600">Décrivez vos besoins, fixez votre budget et recevez des propositions de freelances qualifiés.</p>
+            </div>
+            
+            <!-- Étape 2 -->
+            <div class="text-center group">
+                <div class="w-20 h-20 bg-secondary text-white rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform">
+                    <span class="text-2xl font-bold">2</span>
+                </div>
+                <h3 class="text-xl font-semibold text-gray-900 mb-4">Choisissez le meilleur</h3>
+                <p class="text-gray-600">Comparez les propositions, consultez les profils et sélectionnez le freelance idéal.</p>
+            </div>
+            
+            <!-- Étape 3 -->
+            <div class="text-center group">
+                <div class="w-20 h-20 bg-success text-white rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform">
+                    <span class="text-2xl font-bold">3</span>
+                </div>
+                <h3 class="text-xl font-semibold text-gray-900 mb-4">Collaborez et payez</h3>
+                <p class="text-gray-600">Suivez l'avancement, communiquez en temps réel et payez en toute sécurité.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Freelances Vedettes -->
+<section class="py-16 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl font-bold text-gray-900 mb-4">Freelances Vedettes</h2>
+            <p class="text-lg text-gray-600">Découvrez nos meilleurs talents</p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {% for freelancer in featured_freelancers %}
+            <div class="bg-white border border-gray-200 rounded-xl p-6 hover:shadow-lg transition-all duration-300 group">
+                <div class="text-center">
+                    {% if freelancer.profile_picture %}
+                        <img src="{{ freelancer.profile_picture.url }}" alt="{{ freelancer.user.get_full_name }}" class="w-20 h-20 rounded-full mx-auto mb-4 object-cover">
+                    {% else %}
+                        <div class="w-20 h-20 bg-gradient-to-r from-primary to-secondary rounded-full mx-auto mb-4 flex items-center justify-center">
+                            <i class="ri-user-line text-white text-2xl"></i>
+                        </div>
+                    {% endif %}
+                    
+                    <h3 class="text-lg font-semibold text-gray-900 group-hover:text-primary transition-colors">
+                        {{ freelancer.user.get_full_name }}
+                    </h3>
+                    
+                    <div class="flex items-center justify-center space-x-1 mb-2">
+                        {% for i in "12345" %}
+                            {% if forloop.counter <= freelancer.rating %}
+                                <i class="ri-star-fill text-yellow-400"></i>
+                            {% else %}
+                                <i class="ri-star-line text-gray-300"></i>
+                            {% endif %}
+                        {% endfor %}
+                        <span class="text-sm text-gray-600 ml-1">({{ freelancer.total_reviews }})</span>
+                    </div>
+                    
+                    <p class="text-sm text-gray-600 mb-3">{{ freelancer.description|truncatewords:15 }}</p>
+                    
+                    <div class="flex items-center justify-between text-sm text-gray-500 mb-4">
+                        <span><i class="ri-time-line mr-1"></i>{{ freelancer.hourly_rate }}€/h</span>
+                        <span><i class="ri-map-pin-line mr-1"></i>{{ freelancer.location|default:"À distance" }}</span>
+                    </div>
+                    
+                    <div class="flex flex-wrap gap-1 mb-4 justify-center">
+                        {% for skill in freelancer.skills|slice:":3" %}
+                            <span class="px-2 py-1 bg-blue-100 text-blue-800 text-xs rounded-full">{{ skill }}</span>
+                        {% endfor %}
+                    </div>
+                    
+                    <a href="{% url 'freelancer_detail' freelancer.id %}" class="block w-full bg-primary text-white py-2 rounded-lg hover:bg-secondary transition-colors text-center">
+                        Voir le profil
+                    </a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        
+        <div class="text-center mt-8">
+            <a href="{% url 'freelancers_list' %}" class="inline-flex items-center text-primary hover:text-secondary font-semibold">
+                Voir tous les freelances <i class="ri-arrow-right-line ml-2"></i>
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Projets Récents -->
+{% if recent_projects %}
+<section class="py-16 bg-gray-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl font-bold text-gray-900 mb-4">Projets Récents</h2>
+            <p class="text-lg text-gray-600">Découvrez les dernières opportunités</p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {% for project in recent_projects %}
+            <div class="bg-white border border-gray-200 rounded-xl p-6 hover:shadow-lg transition-all duration-300 group">
+                <div class="flex items-start justify-between mb-4">
+                    <div class="flex items-center space-x-2">
+                        <div class="w-8 h-8 bg-gradient-to-r from-primary to-secondary rounded-lg flex items-center justify-center">
+                            <i class="{{ project.category.icon }} text-white text-sm"></i>
+                        </div>
+                        <span class="text-sm text-gray-600">{{ project.category.name }}</span>
+                    </div>
+                    {% if project.is_urgent %}
+                        <span class="px-2 py-1 bg-red-100 text-red-800 text-xs rounded-full">Urgent</span>
+                    {% endif %}
+                </div>
+                
+                <h3 class="text-lg font-semibold text-gray-900 mb-3 group-hover:text-primary transition-colors">
+                    {{ project.title }}
+                </h3>
+                
+                <p class="text-gray-600 mb-4">{{ project.description|truncatewords:20 }}</p>
+                
+                <div class="flex items-center justify-between text-sm text-gray-500 mb-4">
+                    <span><i class="ri-money-euro-circle-line mr-1"></i>{{ project.get_budget_display }}</span>
+                    <span><i class="ri-time-line mr-1"></i>{{ project.deadline|timeuntil }}</span>
+                </div>
+                
+                <div class="flex flex-wrap gap-1 mb-4">
+                    {% for skill in project.required_skills|slice:":3" %}
+                        <span class="px-2 py-1 bg-blue-100 text-blue-800 text-xs rounded-full">{{ skill }}</span>
+                    {% endfor %}
+                </div>
+                
+                <div class="flex items-center justify-between">
+                    <span class="text-sm text-gray-500">
+                        <i class="ri-user-line mr-1"></i>{{ project.proposals_count }} propositions
+                    </span>
+                    <a href="{% url 'project_detail' project.id %}" class="text-primary hover:text-secondary font-semibold text-sm">
+                        Voir détails <i class="ri-arrow-right-line ml-1"></i>
+                    </a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        
+        <div class="text-center mt-8">
+            <a href="{% url 'projects_list' %}" class="inline-flex items-center text-primary hover:text-secondary font-semibold">
+                Voir tous les projets <i class="ri-arrow-right-line ml-2"></i>
+            </a>
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<!-- Projets Recommandés -->
+{% if recommended_projects %}
+<section class="py-16 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl font-bold text-gray-900 mb-4">Recommandés pour vous</h2>
+            <p class="text-lg text-gray-600">Projets adaptés à vos compétences</p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {% for project in recommended_projects %}
+            <div class="bg-white border-2 border-primary border-opacity-20 rounded-xl p-6 hover:shadow-lg transition-all duration-300 group relative">
+                <div class="absolute top-4 right-4">
+                    <span class="px-2 py-1 bg-primary text-white text-xs rounded-full">Recommandé</span>
+                </div>
+                
+                <div class="flex items-start justify-between mb-4">
+                    <div class="flex items-center space-x-2">
+                        <div class="w-8 h-8 bg-gradient-to-r from-primary to-secondary rounded-lg flex items-center justify-center">
+                            <i class="{{ project.category.icon }} text-white text-sm"></i>
+                        </div>
+                        <span class="text-sm text-gray-600">{{ project.category.name }}</span>
+                    </div>
+                    {% if project.is_urgent %}
+                        <span class="px-2 py-1 bg-red-100 text-red-800 text-xs rounded-full">Urgent</span>
+                    {% endif %}
+                </div>
+                
+                <h3 class="text-lg font-semibold text-gray-900 mb-3 group-hover:text-primary transition-colors">
+                    {{ project.title }}
+                </h3>
+                
+                <p class="text-gray-600 mb-4">{{ project.description|truncatewords:20 }}</p>
+                
+                <div class="flex items-center justify-between text-sm text-gray-500 mb-4">
+                    <span><i class="ri-money-euro-circle-line mr-1"></i>{{ project.get_budget_display }}</span>
+                    <span><i class="ri-time-line mr-1"></i>{{ project.deadline|timeuntil }}</span>
+                </div>
+                
+                <div class="flex flex-wrap gap-1 mb-4">
+                    {% for skill in project.required_skills|slice:":3" %}
+                        <span class="px-2 py-1 bg-blue-100 text-blue-800 text-xs rounded-full">{{ skill }}</span>
+                    {% endfor %}
+                </div>
+                
+                <div class="flex items-center justify-between">
+                    <span class="text-sm text-gray-500">
+                        <i class="ri-user-line mr-1"></i>{{ project.proposals_count }} propositions
+                    </span>
+                    <a href="{% url 'project_detail' project.id %}" class="text-primary hover:text-secondary font-semibold text-sm">
+                        Voir détails <i class="ri-arrow-right-line ml-1"></i>
+                    </a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<!-- Statistiques Avancées -->
+<section class="py-16 bg-gradient-to-r from-primary to-secondary text-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl font-bold mb-4">FreeAfrique en Chiffres</h2>
+            <p class="text-xl text-blue-100">Une communauté qui grandit chaque jour</p>
+        </div>
+        
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+            <div class="text-center">
+                <div class="text-4xl font-bold mb-2" x-data="{ count: 0 }" x-init="
+                    $watch('count', value => {
+                        if (value < {{ stats.total_freelancers }}) {
+                            setTimeout(() => count++, 20);
+                        }
+                    });
+                    count = 0;
+                " x-text="count"></div>
+                <div class="text-blue-200">Freelances Actifs</div>
+            </div>
+            
+            <div class="text-center">
+                <div class="text-4xl font-bold mb-2" x-data="{ count: 0 }" x-init="
+                    $watch('count', value => {
+                        if (value < {{ stats.total_projects }}) {
+                            setTimeout(() => count++, 20);
+                        }
+                    });
+                    count = 0;
+                " x-text="count"></div>
+                <div class="text-blue-200">Projets Créés</div>
+            </div>
+            
+            <div class="text-center">
+                <div class="text-4xl font-bold mb-2" x-data="{ count: 0 }" x-init="
+                    $watch('count', value => {
+                        if (value < {{ stats.completed_projects }}) {
+                            setTimeout(() => count++, 20);
+                        }
+                    });
+                    count = 0;
+                " x-text="count"></div>
+                <div class="text-blue-200">Projets Terminés</div>
+            </div>
+            
+            <div class="text-center">
+                <div class="text-4xl font-bold mb-2" x-data="{ count: 0 }" x-init="
+                    $watch('count', value => {
+                        if (value < {{ stats.total_earnings|floatformat:0 }}) {
+                            setTimeout(() => count += 1000, 20);
+                        }
+                    });
+                    count = 0;
+                " x-text="count.toLocaleString() + '€'"></div>
+                <div class="text-blue-200">Gains Totaux</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Call to Action -->
+<section class="py-16 bg-white">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <h2 class="text-3xl font-bold text-gray-900 mb-6">Prêt à commencer ?</h2>
+        <p class="text-lg text-gray-600 mb-8">
+            Rejoignez la communauté FreeAfrique et découvrez de nouvelles opportunités
+        </p>
+        
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+            <a href="{% url 'signup_client' %}" class="bg-primary text-white px-8 py-3 rounded-lg font-semibold hover:bg-secondary transition-colors">
+                <i class="ri-briefcase-line mr-2"></i>Publier un Projet
+            </a>
+            <a href="{% url 'signup_freelancer' %}" class="border-2 border-primary text-primary px-8 py-3 rounded-lg font-semibold hover:bg-primary hover:text-white transition-colors">
+                <i class="ri-user-line mr-2"></i>Devenir Freelance
+            </a>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    // Animation des statistiques au scroll
+    const observerOptions = {
+        threshold: 0.5,
+        rootMargin: '0px 0px -100px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('animate-pulse');
+            }
+        });
+    }, observerOptions);
+
+    document.querySelectorAll('[x-data*="count"]').forEach(el => {
+        observer.observe(el);
+    });
+</script>
+{% endblock %}

@@ -1,0 +1,261 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Méthodes de Paiement - FreeAfrique{% endblock %}
+
+{% block content %}
+<!-- Header Section -->
+<section class="bg-gradient-to-r from-primary to-secondary text-white py-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center">
+            <h1 class="text-4xl font-bold mb-4">Méthodes de Paiement</h1>
+            <p class="text-xl text-blue-100">Choisissez la méthode de paiement qui vous convient</p>
+        </div>
+    </div>
+</section>
+
+<!-- Payment Methods -->
+<section class="py-12 bg-gray-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            
+            <!-- Carte bancaire -->
+            <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6 hover:shadow-md transition-shadow">
+                <div class="flex items-center mb-4">
+                    <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mr-4">
+                        <i class="ri-bank-card-line text-blue-600 text-xl"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-semibold text-gray-900">Carte bancaire</h3>
+                        <p class="text-sm text-gray-600">Visa, Mastercard, American Express</p>
+                    </div>
+                </div>
+                <div class="space-y-3">
+                    <div class="flex justify-between text-sm">
+                        <span class="text-gray-600">Frais de traitement</span>
+                        <span class="font-medium">2.9% + 0.30€</span>
+                    </div>
+                    <div class="flex justify-between text-sm">
+                        <span class="text-gray-600">Temps de traitement</span>
+                        <span class="font-medium">Immédiat</span>
+                    </div>
+                    <div class="flex justify-between text-sm">
+                        <span class="text-gray-600">Pays supportés</span>
+                        <span class="font-medium">Monde entier</span>
+                    </div>
+                </div>
+                <div class="mt-6">
+                    <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                        <i class="ri-check-line mr-1"></i>Disponible
+                    </span>
+                </div>
+            </div>
+
+            <!-- PayPal -->
+            <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6 hover:shadow-md transition-shadow">
+                <div class="flex items-center mb-4">
+                    <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mr-4">
+                        <i class="ri-paypal-line text-blue-600 text-xl"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-semibold text-gray-900">PayPal</h3>
+                        <p class="text-sm text-gray-600">Compte PayPal ou carte</p>
+                    </div>
+                </div>
+                <div class="space-y-3">
+                    <div class="flex justify-between text-sm">
+                        <span class="text-gray-600">Frais de traitement</span>
+                        <span class="font-medium">3.5% + 0.35€</span>
+                    </div>
+                    <div class="flex justify-between text-sm">
+                        <span class="text-gray-600">Temps de traitement</span>
+                        <span class="font-medium">Immédiat</span>
+                    </div>
+                    <div class="flex justify-between text-sm">
+                        <span class="text-gray-600">Pays supportés</span>
+                        <span class="font-medium">200+ pays</span>
+                    </div>
+                </div>
+                <div class="mt-6">
+                    <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                        <i class="ri-check-line mr-1"></i>Disponible
+                    </span>
+                </div>
+            </div>
+
+            <!-- Mobile Money -->
+            <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6 hover:shadow-md transition-shadow">
+                <div class="flex items-center mb-4">
+                    <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mr-4">
+                        <i class="ri-smartphone-line text-green-600 text-xl"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-semibold text-gray-900">Mobile Money</h3>
+                        <p class="text-sm text-gray-600">M-Pesa, Orange Money, MTN MoMo</p>
+                    </div>
+                </div>
+                <div class="space-y-3">
+                    <div class="flex justify-between text-sm">
+                        <span class="text-gray-600">Frais de traitement</span>
+                        <span class="font-medium">1.5%</span>
+                    </div>
+                    <div class="flex justify-between text-sm">
+                        <span class="text-gray-600">Temps de traitement</span>
+                        <span class="font-medium">Quelques minutes</span>
+                    </div>
+                    <div class="flex justify-between text-sm">
+                        <span class="text-gray-600">Pays supportés</span>
+                        <span class="font-medium">Afrique, Asie</span>
+                    </div>
+                </div>
+                <div class="mt-6">
+                    <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                        <i class="ri-check-line mr-1"></i>Disponible
+                    </span>
+                </div>
+            </div>
+
+            <!-- Cryptomonnaie -->
+            <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6 hover:shadow-md transition-shadow">
+                <div class="flex items-center mb-4">
+                    <div class="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center mr-4">
+                        <i class="ri-bit-coin-line text-orange-600 text-xl"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-semibold text-gray-900">Cryptomonnaie</h3>
+                        <p class="text-sm text-gray-600">Bitcoin, Ethereum, USDT, etc.</p>
+                    </div>
+                </div>
+                <div class="space-y-3">
+                    <div class="flex justify-between text-sm">
+                        <span class="text-gray-600">Frais de traitement</span>
+                        <span class="font-medium">1%</span>
+                    </div>
+                    <div class="flex justify-between text-sm">
+                        <span class="text-gray-600">Temps de traitement</span>
+                        <span class="font-medium">10-30 minutes</span>
+                    </div>
+                    <div class="flex justify-between text-sm">
+                        <span class="text-gray-600">Pays supportés</span>
+                        <span class="font-medium">Monde entier</span>
+                    </div>
+                </div>
+                <div class="mt-6">
+                    <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                        <i class="ri-check-line mr-1"></i>Disponible
+                    </span>
+                </div>
+            </div>
+
+            <!-- Virement bancaire -->
+            <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6 hover:shadow-md transition-shadow">
+                <div class="flex items-center mb-4">
+                    <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mr-4">
+                        <i class="ri-bank-line text-purple-600 text-xl"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-semibold text-gray-900">Virement bancaire</h3>
+                        <p class="text-sm text-gray-600">Transfert bancaire SEPA</p>
+                    </div>
+                </div>
+                <div class="space-y-3">
+                    <div class="flex justify-between text-sm">
+                        <span class="text-gray-600">Frais de traitement</span>
+                        <span class="font-medium">0€</span>
+                    </div>
+                    <div class="flex justify-between text-sm">
+                        <span class="text-gray-600">Temps de traitement</span>
+                        <span class="font-medium">1-3 jours</span>
+                    </div>
+                    <div class="flex justify-between text-sm">
+                        <span class="text-gray-600">Pays supportés</span>
+                        <span class="font-medium">Zone SEPA</span>
+                    </div>
+                </div>
+                <div class="mt-6">
+                    <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                        <i class="ri-check-line mr-1"></i>Disponible
+                    </span>
+                </div>
+            </div>
+
+            <!-- Espèces -->
+            <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6 hover:shadow-md transition-shadow">
+                <div class="flex items-center mb-4">
+                    <div class="w-12 h-12 bg-yellow-100 rounded-lg flex items-center justify-center mr-4">
+                        <i class="ri-money-dollar-circle-line text-yellow-600 text-xl"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-semibold text-gray-900">Espèces</h3>
+                        <p class="text-sm text-gray-600">Paiement en espèces</p>
+                    </div>
+                </div>
+                <div class="space-y-3">
+                    <div class="flex justify-between text-sm">
+                        <span class="text-gray-600">Frais de traitement</span>
+                        <span class="font-medium">0€</span>
+                    </div>
+                    <div class="flex justify-between text-sm">
+                        <span class="text-gray-600">Temps de traitement</span>
+                        <span class="font-medium">Immédiat</span>
+                    </div>
+                    <div class="flex justify-between text-sm">
+                        <span class="text-gray-600">Pays supportés</span>
+                        <span class="font-medium">Local</span>
+                    </div>
+                </div>
+                <div class="mt-6">
+                    <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">
+                        <i class="ri-time-line mr-1"></i>Sur demande
+                    </span>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Informations supplémentaires -->
+        <div class="mt-12 bg-white rounded-lg shadow-sm border border-gray-200 p-8">
+            <h2 class="text-2xl font-bold text-gray-900 mb-6">Informations importantes</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div>
+                    <h3 class="text-lg font-semibold text-gray-900 mb-4">Sécurité</h3>
+                    <ul class="space-y-2 text-gray-600">
+                        <li class="flex items-start">
+                            <i class="ri-shield-check-line text-green-500 mr-2 mt-1"></i>
+                            Tous les paiements sont sécurisés et cryptés
+                        </li>
+                        <li class="flex items-start">
+                            <i class="ri-shield-check-line text-green-500 mr-2 mt-1"></i>
+                            Conformité PCI DSS pour les cartes bancaires
+                        </li>
+                        <li class="flex items-start">
+                            <i class="ri-shield-check-line text-green-500 mr-2 mt-1"></i>
+                            Protection contre la fraude 24h/24
+                        </li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-semibold text-gray-900 mb-4">Support</h3>
+                    <ul class="space-y-2 text-gray-600">
+                        <li class="flex items-start">
+                            <i class="ri-customer-service-2-line text-blue-500 mr-2 mt-1"></i>
+                            Support client disponible 24h/24
+                        </li>
+                        <li class="flex items-start">
+                            <i class="ri-customer-service-2-line text-blue-500 mr-2 mt-1"></i>
+                            Assistance en cas de problème de paiement
+                        </li>
+                        <li class="flex items-start">
+                            <i class="ri-customer-service-2-line text-blue-500 mr-2 mt-1"></i>
+                            Remboursement sous 30 jours
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+

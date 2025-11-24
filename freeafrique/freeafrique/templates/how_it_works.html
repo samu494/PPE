@@ -1,0 +1,226 @@
+{% extends 'base.html' %}
+
+{% block title %}Comment ça marche - FreeAfrique{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="bg-gradient-to-r from-primary/10 to-secondary/10 py-16">
+    <div class="container mx-auto px-4">
+        <div class="text-center">
+            <h1 class="text-4xl font-bold text-gray-900 mb-4">Comment ça marche</h1>
+            <p class="text-lg text-gray-700 max-w-3xl mx-auto">Découvrez comment FreeAfrique connecte les talents africains avec des clients du monde entier en quelques étapes simples.</p>
+        </div>
+    </div>
+</section>
+
+<!-- Pour les clients -->
+<section class="py-16 bg-white">
+    <div class="container mx-auto px-4">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl font-bold text-gray-900 mb-4">Pour les clients</h2>
+            <p class="text-gray-600 max-w-2xl mx-auto">Trouvez le talent parfait pour votre projet en trois étapes simples.</p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <!-- Step 1 -->
+            <div class="bg-white rounded-lg p-6 shadow-md text-center">
+                <div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-6">
+                    <div class="w-8 h-8 flex items-center justify-center text-primary">
+                        <i class="ri-file-list-3-line ri-2x"></i>
+                    </div>
+                </div>
+                <div class="relative mb-6">
+                    <div class="absolute -top-3 -right-3 w-8 h-8 bg-primary text-white rounded-full flex items-center justify-center font-bold">1</div>
+                </div>
+                <h3 class="text-xl font-semibold text-gray-900 mb-3">Publiez votre projet</h3>
+                <p class="text-gray-600">Décrivez votre projet en détail, spécifiez vos besoins et fixez votre budget pour attirer les meilleurs talents.</p>
+            </div>
+            
+            <!-- Step 2 -->
+            <div class="bg-white rounded-lg p-6 shadow-md text-center">
+                <div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-6">
+                    <div class="w-8 h-8 flex items-center justify-center text-primary">
+                        <i class="ri-chat-3-line ri-2x"></i>
+                    </div>
+                </div>
+                <div class="relative mb-6">
+                    <div class="absolute -top-3 -right-3 w-8 h-8 bg-primary text-white rounded-full flex items-center justify-center font-bold">2</div>
+                </div>
+                <h3 class="text-xl font-semibold text-gray-900 mb-3">Choisissez le meilleur</h3>
+                <p class="text-gray-600">Recevez des propositions de freelances qualifiés, comparez leurs profils, leurs tarifs et leurs délais, puis sélectionnez le meilleur.</p>
+            </div>
+            
+            <!-- Step 3 -->
+            <div class="bg-white rounded-lg p-6 shadow-md text-center">
+                <div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-6">
+                    <div class="w-8 h-8 flex items-center justify-center text-primary">
+                        <i class="ri-shake-hands-line ri-2x"></i>
+                    </div>
+                </div>
+                <div class="relative mb-6">
+                    <div class="absolute -top-3 -right-3 w-8 h-8 bg-primary text-white rounded-full flex items-center justify-center font-bold">3</div>
+                </div>
+                <h3 class="text-xl font-semibold text-gray-900 mb-3">Collaborez et payez</h3>
+                <p class="text-gray-600">Communiquez efficacement avec votre freelance, suivez l'avancement du projet et effectuez le paiement une fois satisfait.</p>
+            </div>
+        </div>
+        
+        <div class="text-center mt-10">
+            <a href="{% url 'signup_client' %}" class="px-6 py-3 bg-primary text-white font-medium !rounded-button whitespace-nowrap hover:bg-primary/90">
+                Publier un projet
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Pour les freelances -->
+<section class="py-16 bg-gray-50">
+    <div class="container mx-auto px-4">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl font-bold text-gray-900 mb-4">Pour les freelances</h2>
+            <p class="text-gray-600 max-w-2xl mx-auto">Proposez vos services et développez votre activité en toute simplicité.</p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <!-- Step 1 -->
+            <div class="bg-white rounded-lg p-6 shadow-md text-center">
+                <div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-6">
+                    <div class="w-8 h-8 flex items-center justify-center text-primary">
+                        <i class="ri-user-add-line ri-2x"></i>
+                    </div>
+                </div>
+                <div class="relative mb-6">
+                    <div class="absolute -top-3 -right-3 w-8 h-8 bg-primary text-white rounded-full flex items-center justify-center font-bold">1</div>
+                </div>
+                <h3 class="text-xl font-semibold text-gray-900 mb-3">Créez votre profil</h3>
+                <p class="text-gray-600">Inscrivez-vous gratuitement, complétez votre profil avec vos compétences, votre expérience et vos réalisations pour attirer des clients.</p>
+            </div>
+            
+            <!-- Step 2 -->
+            <div class="bg-white rounded-lg p-6 shadow-md text-center">
+                <div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-6">
+                    <div class="w-8 h-8 flex items-center justify-center text-primary">
+                        <i class="ri-search-line ri-2x"></i>
+                    </div>
+                </div>
+                <div class="relative mb-6">
+                    <div class="absolute -top-3 -right-3 w-8 h-8 bg-primary text-white rounded-full flex items-center justify-center font-bold">2</div>
+                </div>
+                <h3 class="text-xl font-semibold text-gray-900 mb-3">Trouvez des projets</h3>
+                <p class="text-gray-600">Parcourez les projets disponibles, filtrez selon vos compétences et envoyez des propositions personnalisées aux clients potentiels.</p>
+            </div>
+            
+            <!-- Step 3 -->
+            <div class="bg-white rounded-lg p-6 shadow-md text-center">
+                <div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-6">
+                    <div class="w-8 h-8 flex items-center justify-center text-primary">
+                        <i class="ri-money-dollar-circle-line ri-2x"></i>
+                    </div>
+                </div>
+                <div class="relative mb-6">
+                    <div class="absolute -top-3 -right-3 w-8 h-8 bg-primary text-white rounded-full flex items-center justify-center font-bold">3</div>
+                </div>
+                <h3 class="text-xl font-semibold text-gray-900 mb-3">Livrez et gagnez</h3>
+                <p class="text-gray-600">Réalisez le projet selon les spécifications du client, livrez un travail de qualité et recevez votre paiement en toute sécurité.</p>
+            </div>
+        </div>
+        
+        <div class="text-center mt-10">
+            <a href="{% url 'signup_freelancer' %}" class="px-6 py-3 bg-primary text-white font-medium !rounded-button whitespace-nowrap hover:bg-primary/90">
+                Devenir freelance
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- FAQ Section -->
+<section class="py-16 bg-white">
+    <div class="container mx-auto px-4">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl font-bold text-gray-900 mb-4">Questions fréquentes</h2>
+            <p class="text-gray-600 max-w-2xl mx-auto">Trouvez des réponses aux questions les plus courantes sur notre plateforme.</p>
+        </div>
+        
+        <div class="max-w-3xl mx-auto">
+            <div class="space-y-6" x-data="{ activeTab: null }">
+                <!-- Question 1 -->
+                <div class="border border-gray-200 rounded-lg overflow-hidden">
+                    <button 
+                        @click="activeTab = activeTab === 1 ? null : 1" 
+                        class="flex justify-between items-center w-full px-6 py-4 text-left bg-white hover:bg-gray-50"
+                    >
+                        <span class="text-lg font-medium text-gray-900">Comment créer un compte sur FreeAfrique ?</span>
+                        <i class="ri-arrow-down-s-line text-xl transition-transform" :class="{ 'transform rotate-180': activeTab === 1 }"></i>
+                    </button>
+                    <div x-show="activeTab === 1" class="px-6 py-4 bg-gray-50 border-t border-gray-200">
+                        <p class="text-gray-700">Pour créer un compte, cliquez sur "Inscription" en haut à droite de la page d'accueil. Choisissez entre "Je suis un client" ou "Je suis un freelance", puis remplissez le formulaire avec vos informations personnelles. Après avoir validé votre adresse e-mail, vous pourrez compléter votre profil et commencer à utiliser la plateforme.</p>
+                    </div>
+                </div>
+                
+                <!-- Question 2 -->
+                <div class="border border-gray-200 rounded-lg overflow-hidden">
+                    <button 
+                        @click="activeTab = activeTab === 2 ? null : 2" 
+                        class="flex justify-between items-center w-full px-6 py-4 text-left bg-white hover:bg-gray-50"
+                    >
+                        <span class="text-lg font-medium text-gray-900">Quels sont les frais pour utiliser FreeAfrique ?</span>
+                        <i class="ri-arrow-down-s-line text-xl transition-transform" :class="{ 'transform rotate-180': activeTab === 2 }"></i>
+                    </button>
+                    <div x-show="activeTab === 2" class="px-6 py-4 bg-gray-50 border-t border-gray-200">
+                        <p class="text-gray-700">L'inscription et la publication de projets sont gratuites pour les clients. Les freelances peuvent créer un compte et parcourir les projets gratuitement. Une commission de 10% est prélevée uniquement sur les projets réalisés avec succès. Cette commission permet de maintenir et d'améliorer la plateforme, ainsi que d'assurer la sécurité des transactions.</p>
+                    </div>
+                </div>
+                
+                <!-- Question 3 -->
+                <div class="border border-gray-200 rounded-lg overflow-hidden">
+                    <button 
+                        @click="activeTab = activeTab === 3 ? null : 3" 
+                        class="flex justify-between items-center w-full px-6 py-4 text-left bg-white hover:bg-gray-50"
+                    >
+                        <span class="text-lg font-medium text-gray-900">Comment fonctionne le système de paiement ?</span>
+                        <i class="ri-arrow-down-s-line text-xl transition-transform" :class="{ 'transform rotate-180': activeTab === 3 }"></i>
+                    </button>
+                    <div x-show="activeTab === 3" class="px-6 py-4 bg-gray-50 border-t border-gray-200">
+                        <p class="text-gray-700">FreeAfrique utilise un système de paiement sécurisé. Le client effectue un dépôt du montant convenu au début du projet. Les fonds sont conservés en garantie jusqu'à la livraison satisfaisante du travail. Une fois le projet validé par le client, le paiement est libéré au freelance. Ce système protège à la fois les clients et les freelances.</p>
+                    </div>
+                </div>
+                
+                <!-- Question 4 -->
+                <div class="border border-gray-200 rounded-lg overflow-hidden">
+                    <button 
+                        @click="activeTab = activeTab === 4 ? null : 4" 
+                        class="flex justify-between items-center w-full px-6 py-4 text-left bg-white hover:bg-gray-50"
+                    >
+                        <span class="text-lg font-medium text-gray-900">Que faire en cas de litige avec un client ou un freelance ?</span>
+                        <i class="ri-arrow-down-s-line text-xl transition-transform" :class="{ 'transform rotate-180': activeTab === 4 }"></i>
+                    </button>
+                    <div x-show="activeTab === 4" class="px-6 py-4 bg-gray-50 border-t border-gray-200">
+                        <p class="text-gray-700">En cas de désaccord, nous vous encourageons d'abord à communiquer directement avec l'autre partie pour trouver une solution amiable. Si le problème persiste, vous pouvez ouvrir un ticket de support en expliquant la situation. Notre équipe de médiation interviendra pour examiner le cas et proposer une résolution équitable basée sur les termes convenus et les preuves fournies.</p>
+                    </div>
+                </div>
+                
+                <!-- Question 5 -->
+                <div class="border border-gray-200 rounded-lg overflow-hidden">
+                    <button 
+                        @click="activeTab = activeTab === 5 ? null : 5" 
+                        class="flex justify-between items-center w-full px-6 py-4 text-left bg-white hover:bg-gray-50"
+                    >
+                        <span class="text-lg font-medium text-gray-900">Comment contacter le support client ?</span>
+                        <i class="ri-arrow-down-s-line text-xl transition-transform" :class="{ 'transform rotate-180': activeTab === 5 }"></i>
+                    </button>
+                    <div x-show="activeTab === 5" class="px-6 py-4 bg-gray-50 border-t border-gray-200">
+                        <p class="text-gray-700">Pour contacter notre équipe de support, connectez-vous à votre compte et accédez à la section "Support" depuis votre tableau de bord. Vous pouvez créer un nouveau ticket en décrivant votre problème ou votre question. Notre équipe vous répondra dans les meilleurs délais. Pour les questions urgentes, vous pouvez également consulter notre FAQ ou notre centre d'aide.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="text-center mt-12">
+            <p class="text-gray-600 mb-4">Vous avez d'autres questions ?</p>
+            <a href="{% url 'support_tickets' %}" class="px-6 py-3 bg-gray-100 text-gray-700 font-medium !rounded-button whitespace-nowrap hover:bg-gray-200 transition-colors">
+                Contacter le support
+            </a>
+        </div>
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Inscription Client - FreeAfrique</title>
+<script src="https://cdn.tailwindcss.com/3.4.16"></script>
+<script>tailwind.config={theme:{extend:{colors:{primary:'#4F46E5',secondary:'#10B981'},borderRadius:{'none':'0px','sm':'4px',DEFAULT:'8px','md':'12px','lg':'16px','xl':'20px','2xl':'24px','3xl':'32px','full':'9999px','button':'8px'}}}}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css">
+<style>
+:where([class^="ri-"])::before { content: "\f3c2"; }
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f9fafb;
+}
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+.password-strength-meter {
+    height: 4px;
+    background-color: #e5e7eb;
+    border-radius: 2px;
+    overflow: hidden;
+}
+.password-strength-meter div {
+    height: 100%;
+    transition: width 0.3s ease;
+}
+.custom-checkbox {
+    position: relative;
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #d1d5db;
+    border-radius: 4px;
+    transition: all 0.2s;
+}
+.custom-checkbox.checked {
+    background-color: #4F46E5;
+    border-color: #4F46E5;
+}
+.custom-checkbox.checked::after {
+    content: '';
+    position: absolute;
+    left: 6px;
+    top: 2px;
+    width: 6px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+}
+.social-btn:hover {
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+.form-input:focus {
+    border-color: #4F46E5;
+    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+}
+.form-section {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+.form-section.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+.form-progress-bar {
+    height: 4px;
+    background-color: #e5e7eb;
+    border-radius: 2px;
+    overflow: hidden;
+}
+.form-progress-bar div {
+    height: 100%;
+    background-color: #4F46E5;
+    transition: width 0.3s ease;
+}
+</style>
+</head>
+<body>
+<!-- Header -->
+<header class="bg-white shadow-sm">
+    <div class="container mx-auto px-4 py-4 flex items-center justify-between">
+        <div class="flex items-center">
+            <a href="https://readdy.ai/home/e5de8073-45ea-47b4-b8ce-0fde207a4395/5ed47360-a2c7-435b-86fb-548bba2e509c" data-readdy="true" class="text-2xl font-['Pacifico'] text-primary">FreeAfrique</a>
+        </div>
+        <a href="{% url 'home' %}" class="flex items-center text-gray-700 hover:text-primary font-medium">
+            <div class="w-5 h-5 flex items-center justify-center mr-2">
+            <i class="ri-arrow-left-line"></i>
+            </div>
+            Retour
+        </a>
+    </div>
+</header>
+
+<!-- Main Content -->
+<main class="container mx-auto px-4 py-12 max-w-4xl">
+    <div class="bg-white rounded-lg shadow-md p-8">
+        <!-- Form Header -->
+        <div class="text-center mb-8">
+            <h1 class="text-3xl font-bold text-gray-900 mb-3">Créer un compte client</h1>
+            <p class="text-gray-600 max-w-2xl mx-auto">Rejoignez notre communauté et commencez à poster vos projets pour trouver les meilleurs talents africains</p>
+        </div>
+
+        <!-- Progress Bar -->
+        <div class="form-progress-bar mb-8">
+            <div id="progress-bar" style="width: 33%;"></div>
+        </div>
+
+        <!-- Social Login -->
+        <div class="flex flex-col sm:flex-row gap-4 mb-8 justify-center">
+            <button class="social-btn flex items-center justify-center gap-3 px-6 py-3 border border-gray-300 rounded-button text-gray-700 bg-white hover:bg-gray-50 transition-all whitespace-nowrap">
+                <div class="w-5 h-5 flex items-center justify-center">
+                    <i class="ri-google-fill text-[#DB4437]"></i>
+                </div>
+                Continuer avec Google
+            </button>
+            <button class="social-btn flex items-center justify-center gap-3 px-6 py-3 border border-gray-300 rounded-button text-gray-700 bg-white hover:bg-gray-50 transition-all whitespace-nowrap">
+                <div class="w-5 h-5 flex items-center justify-center">
+                    <i class="ri-linkedin-fill text-[#0077B5]"></i>
+                </div>
+                Continuer avec LinkedIn
+            </button>
+        </div>
+
+        <!-- Divider -->
+        <div class="flex items-center justify-center mb-8">
+            <div class="flex-1 h-px bg-gray-200"></div>
+            <span class="px-4 text-gray-500 text-sm font-medium">OU</span>
+            <div class="flex-1 h-px bg-gray-200"></div>
+        </div>
+
+        <!-- Registration Form -->
+        <form id="registration-form">
+            <!-- Step 1: Personal Information -->
+            <div id="step-1" class="form-section active">
+                <h2 class="text-xl font-semibold text-gray-900 mb-6">Informations personnelles</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                    <div>
+                        <label for="firstName" class="block text-sm font-medium text-gray-700 mb-2">Prénom <span class="text-red-500">*</span></label>
+                        <input type="text" id="firstName" name="firstName" class="form-input w-full px-4 py-3 border border-gray-300 rounded-button focus:outline-none" placeholder="Votre prénom" required>
+                    </div>
+                    <div>
+                        <label for="lastName" class="block text-sm font-medium text-gray-700 mb-2">Nom <span class="text-red-500">*</span></label>
+                        <input type="text" id="lastName" name="lastName" class="form-input w-full px-4 py-3 border border-gray-300 rounded-button focus:outline-none" placeholder="Votre nom" required>
+                    </div>
+                </div>
+                <div class="mb-6">
+                    <label for="email" class="block text-sm font-medium text-gray-700 mb-2">Adresse email <span class="text-red-500">*</span></label>
+                    <input type="email" id="email" name="email" class="form-input w-full px-4 py-3 border border-gray-300 rounded-button focus:outline-none" placeholder="exemple@email.com" required>
+                </div>
+                <div class="mb-6">
+                    <label for="password" class="block text-sm font-medium text-gray-700 mb-2">Mot de passe <span class="text-red-500">*</span></label>
+                    <div class="relative">
+                        <input type="password" id="password" name="password" class="form-input w-full px-4 py-3 border border-gray-300 rounded-button focus:outline-none" placeholder="8 caractères minimum" required>
+                        <button type="button" id="toggle-password" class="absolute right-3 top-1/2 transform -translate-y-1/2">
+                            <div class="w-5 h-5 flex items-center justify-center text-gray-500">
+                                <i class="ri-eye-line"></i>
+                            </div>
+                        </button>
+                    </div>
+                    <div class="mt-2">
+                        <div class="password-strength-meter">
+                            <div id="password-strength" style="width: 0%; background-color: #EF4444;"></div>
+                        </div>
+                        <p id="password-feedback" class="text-xs text-gray-500 mt-1">Utilisez au moins 8 caractères avec des lettres, chiffres et symboles</p>
+                    </div>
+                </div>
+                <div class="mb-8">
+                    <label for="confirmPassword" class="block text-sm font-medium text-gray-700 mb-2">Confirmer le mot de passe <span class="text-red-500">*</span></label>
+                    <input type="password" id="confirmPassword" name="confirmPassword" class="form-input w-full px-4 py-3 border border-gray-300 rounded-button focus:outline-none" placeholder="Confirmez votre mot de passe" required>
+                    <p id="password-match" class="text-xs text-gray-500 mt-1 hidden">Les mots de passe correspondent</p>
+                </div>
+                <div class="flex justify-end">
+                    <button type="button" id="next-step-1" class="px-6 py-3 bg-primary text-white font-medium !rounded-button whitespace-nowrap hover:bg-primary/90">Continuer</button>
+                </div>
+            </div>
+
+            <!-- Step 2: Professional Information -->
+            <div id="step-2" class="form-section hidden">
+                <h2 class="text-xl font-semibold text-gray-900 mb-6">Informations professionnelles</h2>
+                <div class="mb-6">
+                    <label for="company" class="block text-sm font-medium text-gray-700 mb-2">Nom de l'entreprise <span class="text-red-500">*</span></label>
+                    <input type="text" id="company" name="company" class="form-input w-full px-4 py-3 border border-gray-300 rounded-button focus:outline-none" placeholder="Nom de votre entreprise" required>
+                </div>
+                <div class="mb-6">
+                    <label for="position" class="block text-sm font-medium text-gray-700 mb-2">Votre poste</label>
+                    <input type="text" id="position" name="position" class="form-input w-full px-4 py-3 border border-gray-300 rounded-button focus:outline-none" placeholder="Ex: Directeur, Chef de projet, etc.">
+                </div>
+                <div class="mb-6">
+                    <label for="sector" class="block text-sm font-medium text-gray-700 mb-2">Secteur d'activité <span class="text-red-500">*</span></label>
+                    <div class="relative">
+                        <select id="sector" name="sector" class="form-input w-full px-4 py-3 border border-gray-300 rounded-button focus:outline-none appearance-none pr-8" required>
+                            <option value="" disabled selected>Sélectionnez un secteur</option>
+                            <option value="tech">Technologies & IT</option>
+                            <option value="marketing">Marketing & Communication</option>
+                            <option value="finance">Finance & Comptabilité</option>
+                            <option value="education">Éducation & Formation</option>
+                            <option value="health">Santé & Bien-être</option>
+                            <option value="retail">Commerce & Distribution</option>
+                            <option value="manufacturing">Industrie & Production</option>
+                            <option value="media">Médias & Divertissement</option>
+                            <option value="ngo">ONG & Associations</option>
+                            <option value="other">Autre</option>
+                        </select>
+                        <div class="absolute right-3 top-1/2 transform -translate-y-1/2 pointer-events-none">
+                            <div class="w-5 h-5 flex items-center justify-center text-gray-500">
+                                <i class="ri-arrow-down-s-line"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-6">
+                    <label for="company-size" class="block text-sm font-medium text-gray-700 mb-2">Taille de l'entreprise</label>
+                    <div class="relative">
+                        <select id="company-size" name="company-size" class="form-input w-full px-4 py-3 border border-gray-300 rounded-button focus:outline-none appearance-none pr-8">
+                            <option value="" disabled selected>Sélectionnez une taille</option>
+                            <option value="1-10">1-10 employés</option>
+                            <option value="11-50">11-50 employés</option>
+                            <option value="51-200">51-200 employés</option>
+                            <option value="201-500">201-500 employés</option>
+                            <option value="501+">Plus de 500 employés</option>
+                        </select>
+                        <div class="absolute right-3 top-1/2 transform -translate-y-1/2 pointer-events-none">
+                            <div class="w-5 h-5 flex items-center justify-center text-gray-500">
+                                <i class="ri-arrow-down-s-line"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-8">
+                    <label for="website" class="block text-sm font-medium text-gray-700 mb-2">Site web de l'entreprise</label>
+                    <input type="url" id="website" name="website" class="form-input w-full px-4 py-3 border border-gray-300 rounded-button focus:outline-none" placeholder="https://www.exemple.com">
+                </div>
+                <div class="flex justify-between">
+                    <button type="button" id="prev-step-2" class="px-6 py-3 border border-gray-300 text-gray-700 font-medium !rounded-button whitespace-nowrap hover:bg-gray-50">Retour</button>
+                    <button type="button" id="next-step-2" class="px-6 py-3 bg-primary text-white font-medium !rounded-button whitespace-nowrap hover:bg-primary/90">Continuer</button>
+                </div>
+            </div>
+
+            <!-- Step 3: Preferences -->
+            <div id="step-3" class="form-section hidden">
+                <h2 class="text-xl font-semibold text-gray-900 mb-6">Vos préférences</h2>
+                <div class="mb-6">
+                    <label class="block text-sm font-medium text-gray-700 mb-3">Types de projets qui vous intéressent</label>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                        <div class="flex items-center">
+                            <div class="custom-checkbox" data-checkbox="web-dev"></div>
+                            <label for="web-dev" class="ml-2 text-gray-700">Développement Web</label>
+                        </div>
+                        <div class="flex items-center">
+                            <div class="custom-checkbox" data-checkbox="mobile-dev"></div>
+                            <label for="mobile-dev" class="ml-2 text-gray-700">Développement Mobile</label>
+                        </div>
+                        <div class="flex items-center">
+                            <div class="custom-checkbox" data-checkbox="design"></div>
+                            <label for="design" class="ml-2 text-gray-700">Design & Créativité</label>
+                        </div>
+                        <div class="flex items-center">
+                            <div class="custom-checkbox" data-checkbox="marketing"></div>
+                            <label for="marketing" class="ml-2 text-gray-700">Marketing Digital</label>
+                        </div>
+                        <div class="flex items-center">
+                            <div class="custom-checkbox" data-checkbox="writing"></div>
+                            <label for="writing" class="ml-2 text-gray-700">Rédaction & Traduction</label>
+                        </div>
+                        <div class="flex items-center">
+                            <div class="custom-checkbox" data-checkbox="support"></div>
+                            <label for="support" class="ml-2 text-gray-700">Support Client</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-6">
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Budget moyen par projet</label>
+                    <div class="relative">
+                        <select id="budget" name="budget" class="form-input w-full px-4 py-3 border border-gray-300 rounded-button focus:outline-none appearance-none pr-8">
+                            <option value="" disabled selected>Sélectionnez un budget</option>
+                            <option value="less-500">Moins de 500 €</option>
+                            <option value="500-1000">500 € - 1 000 €</option>
+                            <option value="1000-3000">1 000 € - 3 000 €</option>
+                            <option value="3000-5000">3 000 € - 5 000 €</option>
+                            <option value="5000-10000">5 000 € - 10 000 €</option>
+                            <option value="more-10000">Plus de 10 000 €</option>
+                        </select>
+                        <div class="absolute right-3 top-1/2 transform -translate-y-1/2 pointer-events-none">
+                            <div class="w-5 h-5 flex items-center justify-center text-gray-500">
+                                <i class="ri-arrow-down-s-line"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-6">
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Fréquence des projets</label>
+                    <div class="relative">
+                        <select id="frequency" name="frequency" class="form-input w-full px-4 py-3 border border-gray-300 rounded-button focus:outline-none appearance-none pr-8">
+                            <option value="" disabled selected>Sélectionnez une fréquence</option>
+                            <option value="one-time">Projet ponctuel</option>
+                            <option value="monthly">Projets mensuels</option>
+                            <option value="quarterly">Projets trimestriels</option>
+                            <option value="ongoing">Collaboration continue</option>
+                        </select>
+                        <div class="absolute right-3 top-1/2 transform -translate-y-1/2 pointer-events-none">
+                            <div class="w-5 h-5 flex items-center justify-center text-gray-500">
+                                <i class="ri-arrow-down-s-line"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-8">
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Comment avez-vous connu FreeAfrique ?</label>
+                    <div class="relative">
+                        <select id="referral" name="referral" class="form-input w-full px-4 py-3 border border-gray-300 rounded-button focus:outline-none appearance-none pr-8">
+                            <option value="" disabled selected>Sélectionnez une option</option>
+                            <option value="search">Moteur de recherche</option>
+                            <option value="social">Réseaux sociaux</option>
+                            <option value="friend">Recommandation</option>
+                            <option value="ad">Publicité en ligne</option>
+                            <option value="other">Autre</option>
+                        </select>
+                        <div class="absolute right-3 top-1/2 transform -translate-y-1/2 pointer-events-none">
+                            <div class="w-5 h-5 flex items-center justify-center text-gray-500">
+                                <i class="ri-arrow-down-s-line"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-8">
+                    <div class="flex items-center mb-4">
+                        <div class="custom-checkbox" data-checkbox="terms"></div>
+                        <label for="terms" class="ml-2 text-gray-700">J'accepte les <a href="#" class="text-primary hover:underline">Conditions d'utilisation</a> et la <a href="#" class="text-primary hover:underline">Politique de confidentialité</a> <span class="text-red-500">*</span></label>
+                    </div>
+                    <div class="flex items-center">
+                        <div class="custom-checkbox" data-checkbox="newsletter"></div>
+                        <label for="newsletter" class="ml-2 text-gray-700">Je souhaite recevoir des informations sur les nouveaux talents et offres spéciales</label>
+                    </div>
+                </div>
+                <div class="flex justify-between">
+                    <button type="button" id="prev-step-3" class="px-6 py-3 border border-gray-300 text-gray-700 font-medium !rounded-button whitespace-nowrap hover:bg-gray-50">Retour</button>
+                    <button type="submit" id="submit-form" class="px-6 py-3 bg-primary text-white font-medium !rounded-button whitespace-nowrap hover:bg-primary/90">Créer mon compte</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</main>
+
+<!-- Footer -->
+<footer class="bg-white border-t border-gray-200 py-8 mt-12">
+    <div class="container mx-auto px-4">
+        <div class="flex flex-col md:flex-row justify-between items-center">
+            <p class="text-gray-500 text-sm mb-4 md:mb-0">© 2025 FreeAfrique. Tous droits réservés.</p>
+            <div class="flex flex-wrap justify-center gap-4 text-sm text-gray-500">
+                <a href="#" class="hover:text-primary transition-colors">Conditions d'utilisation</a>
+                <a href="#" class="hover:text-primary transition-colors">Politique de confidentialité</a>
+                <a href="#" class="hover:text-primary transition-colors">Aide</a>
+                <a href="#" class="hover:text-primary transition-colors">Contact</a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Form navigation
+    const step1 = document.getElementById('step-1');
+    const step2 = document.getElementById('step-2');
+    const step3 = document.getElementById('step-3');
+    const progressBar = document.getElementById('progress-bar');
+    
+    document.getElementById('next-step-1').addEventListener('click', function() {
+        step1.classList.remove('active');
+        step1.classList.add('hidden');
+        step2.classList.remove('hidden');
+        setTimeout(() => {
+            step2.classList.add('active');
+        }, 10);
+        progressBar.style.width = '66%';
+    });
+    
+    document.getElementById('prev-step-2').addEventListener('click', function() {
+        step2.classList.remove('active');
+        setTimeout(() => {
+            step2.classList.add('hidden');
+            step1.classList.remove('hidden');
+            step1.classList.add('active');
+        }, 300);
+        progressBar.style.width = '33%';
+    });
+    
+    document.getElementById('next-step-2').addEventListener('click', function() {
+        step2.classList.remove('active');
+        step2.classList.add('hidden');
+        step3.classList.remove('hidden');
+        setTimeout(() => {
+            step3.classList.add('active');
+        }, 10);
+        progressBar.style.width = '100%';
+    });
+    
+    document.getElementById('prev-step-3').addEventListener('click', function() {
+        step3.classList.remove('active');
+        setTimeout(() => {
+            step3.classList.add('hidden');
+            step2.classList.remove('hidden');
+            step2.classList.add('active');
+        }, 300);
+        progressBar.style.width = '66%';
+    });
+    
+    // Password toggle
+    const passwordInput = document.getElementById('password');
+    const togglePasswordBtn = document.getElementById('toggle-password');
+    
+    togglePasswordBtn.addEventListener('click', function() {
+        const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+        passwordInput.setAttribute('type', type);
+        
+        const icon = togglePasswordBtn.querySelector('i');
+        if (type === 'text') {
+            icon.className = 'ri-eye-off-line';
+        } else {
+            icon.className = 'ri-eye-line';
+        }
+    });
+    
+    // Password strength meter
+    const strengthMeter = document.getElementById('password-strength');
+    const strengthFeedback = document.getElementById('password-feedback');
+    
+    passwordInput.addEventListener('input', function() {
+        const password = this.value;
+        const confirmPassword = document.getElementById('confirmPassword').value;
+        const passwordMatch = document.getElementById('password-match');
+        
+        // Check password strength
+        let strength = 0;
+        let feedback = '';
+        
+        if (password.length >= 8) {
+            strength += 25;
+        }
+        
+        if (password.match(/[A-Z]/)) {
+            strength += 25;
+        }
+        
+        if (password.match(/[0-9]/)) {
+            strength += 25;
+        }
+        
+        if (password.match(/[^A-Za-z0-9]/)) {
+            strength += 25;
+        }
+        
+        strengthMeter.style.width = strength + '%';
+        
+        if (strength <= 25) {
+            strengthMeter.style.backgroundColor = '#EF4444'; // Red
+            feedback = 'Mot de passe faible';
+        } else if (strength <= 50) {
+            strengthMeter.style.backgroundColor = '#F59E0B'; // Amber
+            feedback = 'Mot de passe moyen';
+        } else if (strength <= 75) {
+            strengthMeter.style.backgroundColor = '#10B981'; // Green
+            feedback = 'Mot de passe fort';
+        } else {
+            strengthMeter.style.backgroundColor = '#059669'; // Emerald
+            feedback = 'Mot de passe très fort';
+        }
+        
+        strengthFeedback.textContent = feedback;
+        
+        // Check if passwords match
+        if (confirmPassword.length > 0) {
+            if (password === confirmPassword) {
+                passwordMatch.textContent = 'Les mots de passe correspondent';
+                passwordMatch.classList.remove('text-red-500', 'hidden');
+                passwordMatch.classList.add('text-green-500');
+            } else {
+                passwordMatch.textContent = 'Les mots de passe ne correspondent pas';
+                passwordMatch.classList.remove('text-green-500', 'hidden');
+                passwordMatch.classList.add('text-red-500');
+            }
+        } else {
+            passwordMatch.classList.add('hidden');
+        }
+    });
+    
+    document.getElementById('confirmPassword').addEventListener('input', function() {
+        const password = document.getElementById('password').value;
+        const confirmPassword = this.value;
+        const passwordMatch = document.getElementById('password-match');
+        
+        if (confirmPassword.length > 0) {
+            if (password === confirmPassword) {
+                passwordMatch.textContent = 'Les mots de passe correspondent';
+                passwordMatch.classList.remove('text-red-500', 'hidden');
+                passwordMatch.classList.add('text-green-500');
+            } else {
+                passwordMatch.textContent = 'Les mots de passe ne correspondent pas';
+                passwordMatch.classList.remove('text-green-500', 'hidden');
+                passwordMatch.classList.add('text-red-500');
+            }
+        } else {
+            passwordMatch.classList.add('hidden');
+        }
+    });
+    
+    // Custom checkboxes
+    const checkboxes = document.querySelectorAll('.custom-checkbox');
+    
+    checkboxes.forEach(checkbox => {
+        checkbox.addEventListener('click', function() {
+            this.classList.toggle('checked');
+        });
+    });
+    
+    // Form submission
+    document.getElementById('registration-form').addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        // Check if terms are accepted
+        const termsCheckbox = document.querySelector('[data-checkbox="terms"]');
+        if (!termsCheckbox.classList.contains('checked')) {
+            alert('Vous devez accepter les conditions d\'utilisation pour créer un compte.');
+            return;
+        }
+        
+        // Form validation would go here
+        
+        // Redirect to success page or dashboard
+        alert('Compte créé avec succès ! Vous allez être redirigé vers votre tableau de bord.');
+        window.location.href = 'https://readdy.ai/home/e5de8073-45ea-47b4-b8ce-0fde207a4395/5ed47360-a2c7-435b-86fb-548bba2e509c';
+    });
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,259 @@
+{% extends 'base.html' %}
+{% block title %}Administration - Support Client{% endblock %}
+
+{% block content %}
+<!-- Header Section -->
+<section class="bg-gradient-to-r from-primary to-secondary text-white py-8">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex items-center justify-between">
+            <div>
+                <h1 class="text-3xl font-bold mb-2">Administration Support Client</h1>
+                <p class="text-blue-100">Gérez tous les tickets de support des utilisateurs</p>
+            </div>
+            <div class="flex items-center space-x-4">
+                <div class="text-right">
+                    <div class="text-2xl font-bold">{{ tickets.count }}</div>
+                    <div class="text-sm text-blue-200">Tickets totaux</div>
+                </div>
+                <div class="text-right">
+                    <div class="text-2xl font-bold">{{ open_tickets_count }}</div>
+                    <div class="text-sm text-blue-200">En attente</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Stats Section -->
+<section class="py-6 bg-gray-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+            <div class="bg-white rounded-lg p-6 shadow-sm">
+                <div class="flex items-center">
+                    <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mr-4">
+                        <i class="ri-ticket-line text-blue-600 text-xl"></i>
+                    </div>
+                    <div>
+                        <div class="text-2xl font-bold text-gray-900">{{ open_tickets_count }}</div>
+                        <div class="text-sm text-gray-600">Ouverts</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="bg-white rounded-lg p-6 shadow-sm">
+                <div class="flex items-center">
+                    <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mr-4">
+                        <i class="ri-time-line text-purple-600 text-xl"></i>
+                    </div>
+                    <div>
+                        <div class="text-2xl font-bold text-gray-900">{{ in_progress_count }}</div>
+                        <div class="text-sm text-gray-600">En cours</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="bg-white rounded-lg p-6 shadow-sm">
+                <div class="flex items-center">
+                    <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mr-4">
+                        <i class="ri-check-line text-green-600 text-xl"></i>
+                    </div>
+                    <div>
+                        <div class="text-2xl font-bold text-gray-900">{{ resolved_count }}</div>
+                        <div class="text-sm text-gray-600">Résolus</div>
+                    </div>
+        </div>
+    </div>
+
+            <div class="bg-white rounded-lg p-6 shadow-sm">
+                <div class="flex items-center">
+                    <div class="w-12 h-12 bg-red-100 rounded-lg flex items-center justify-center mr-4">
+                        <i class="ri-error-warning-line text-red-600 text-xl"></i>
+                    </div>
+                    <div>
+                        <div class="text-2xl font-bold text-gray-900">{{ urgent_count }}</div>
+                        <div class="text-sm text-gray-600">Urgents</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Main Content -->
+<section class="py-8 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    {% if messages %}
+        <div class="mb-6">
+            {% for message in messages %}
+            <div class="bg-{{ message.tags }}-100 border border-{{ message.tags }}-400 text-{{ message.tags }}-700 px-4 py-3 rounded-lg mb-4">
+                {{ message }}
+            </div>
+            {% endfor %}
+    </div>
+    {% endif %}
+
+        <!-- Filters -->
+        <div class="bg-white border border-gray-200 rounded-lg p-6 mb-6">
+            <h3 class="text-lg font-semibold text-gray-900 mb-4">Filtres</h3>
+            <form method="get" class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                <div>
+                    <label for="status" class="block text-sm font-medium text-gray-700 mb-2">Statut</label>
+                    <select id="status" name="status" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary">
+                        <option value="" {% if not status_filter %}selected{% endif %}>Tous</option>
+                        <option value="open" {% if status_filter == 'open' %}selected{% endif %}>Ouvert</option>
+                        <option value="in_progress" {% if status_filter == 'in_progress' %}selected{% endif %}>En cours</option>
+                        <option value="waiting" {% if status_filter == 'waiting' %}selected{% endif %}>En attente</option>
+                        <option value="resolved" {% if status_filter == 'resolved' %}selected{% endif %}>Résolu</option>
+                        <option value="closed" {% if status_filter == 'closed' %}selected{% endif %}>Fermé</option>
+                    </select>
+                </div>
+                
+                <div>
+                    <label for="priority" class="block text-sm font-medium text-gray-700 mb-2">Priorité</label>
+                    <select id="priority" name="priority" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary">
+                        <option value="" {% if not priority_filter %}selected{% endif %}>Toutes</option>
+                        <option value="urgent" {% if priority_filter == 'urgent' %}selected{% endif %}>Urgente</option>
+                        <option value="high" {% if priority_filter == 'high' %}selected{% endif %}>Haute</option>
+                        <option value="medium" {% if priority_filter == 'medium' %}selected{% endif %}>Moyenne</option>
+                        <option value="low" {% if priority_filter == 'low' %}selected{% endif %}>Basse</option>
+                            </select>
+                        </div>
+                
+                <div>
+                    <label for="type" class="block text-sm font-medium text-gray-700 mb-2">Type</label>
+                    <select id="type" name="type" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary">
+                        <option value="" {% if not type_filter %}selected{% endif %}>Tous</option>
+                        <option value="technical" {% if type_filter == 'technical' %}selected{% endif %}>Technique</option>
+                        <option value="billing" {% if type_filter == 'billing' %}selected{% endif %}>Facturation</option>
+                        <option value="account" {% if type_filter == 'account' %}selected{% endif %}>Compte</option>
+                        <option value="project" {% if type_filter == 'project' %}selected{% endif %}>Projet</option>
+                        <option value="payment" {% if type_filter == 'payment' %}selected{% endif %}>Paiement</option>
+                        <option value="other" {% if type_filter == 'other' %}selected{% endif %}>Autre</option>
+                            </select>
+                        </div>
+                
+                <div class="flex items-end">
+                    <button type="submit" class="w-full bg-primary text-white px-6 py-2 rounded-lg font-medium hover:bg-secondary transition-colors">
+                        <i class="ri-filter-line mr-2"></i>Appliquer
+                            </button>
+                        </div>
+                    </form>
+    </div>
+
+        <!-- Tickets List -->
+        <div class="bg-white border border-gray-200 rounded-lg overflow-hidden">
+                    {% if tickets %}
+            <div class="overflow-x-auto">
+                <table class="min-w-full divide-y divide-gray-200">
+                    <thead class="bg-gray-50">
+                        <tr>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">ID</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Utilisateur</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Sujet</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Type</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Priorité</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Statut</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Créé</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Assigné</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                                </tr>
+                            </thead>
+                    <tbody class="bg-white divide-y divide-gray-200">
+                                {% for ticket in tickets %}
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                #{{ ticket.id }}
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                                {{ ticket.user.get_full_name|default:ticket.user.username }}
+                            </td>
+                            <td class="px-6 py-4 text-sm text-gray-900">
+                                <a href="{% url 'support_ticket_detail' ticket.id %}" class="text-primary hover:text-secondary font-medium">
+                                    {{ ticket.subject|truncatechars:40 }}
+                                        </a>
+                                    </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                                {{ ticket.get_ticket_type_display }}
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <span class="px-3 py-1 rounded-full text-xs font-medium
+                                    {% if ticket.priority == 'urgent' %}bg-red-100 text-red-800
+                                    {% elif ticket.priority == 'high' %}bg-orange-100 text-orange-800
+                                    {% elif ticket.priority == 'medium' %}bg-yellow-100 text-yellow-800
+                                    {% else %}bg-green-100 text-green-800{% endif %}">
+                                    {{ ticket.get_priority_display }}
+                                </span>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <span class="px-3 py-1 rounded-full text-xs font-medium
+                                    {% if ticket.status == 'open' %}bg-blue-100 text-blue-800
+                                    {% elif ticket.status == 'in_progress' %}bg-purple-100 text-purple-800
+                                    {% elif ticket.status == 'waiting' %}bg-yellow-100 text-yellow-800
+                                    {% elif ticket.status == 'resolved' %}bg-green-100 text-green-800
+                                    {% else %}bg-gray-100 text-gray-800{% endif %}">
+                                    {{ ticket.get_status_display }}
+                                </span>
+                                    </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                {{ ticket.created_at|date:"d/m/Y" }}
+                                    </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                                        {% if ticket.assigned_to %}
+                                {{ ticket.assigned_to.get_full_name|default:ticket.assigned_to.username }}
+                                        {% else %}
+                                <span class="text-gray-400">Non assigné</span>
+                                        {% endif %}
+                                    </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                                <div class="flex items-center space-x-2">
+                                    <a href="{% url 'support_ticket_detail' ticket.id %}" 
+                                       class="text-primary hover:text-secondary">
+                                        <i class="ri-eye-line"></i>
+                                    </a>
+                                    
+                                    <form method="post" class="inline">
+                                                {% csrf_token %}
+                                                <input type="hidden" name="ticket_id" value="{{ ticket.id }}">
+                                                
+                                                {% if not ticket.assigned_to and ticket.status != 'closed' %}
+                                        <button type="submit" name="action" value="assign" 
+                                                class="text-green-600 hover:text-green-800"
+                                                title="S'assigner">
+                                            <i class="ri-user-add-line"></i>
+                                                </button>
+                                                {% endif %}
+                                                
+                                                {% if ticket.status != 'closed' %}
+                                        <button type="submit" name="action" value="close" 
+                                                class="text-gray-600 hover:text-gray-800"
+                                                title="Fermer">
+                                            <i class="ri-close-circle-line"></i>
+                                                </button>
+                                                {% else %}
+                                        <button type="submit" name="action" value="reopen" 
+                                                class="text-orange-600 hover:text-orange-800"
+                                                title="Rouvrir">
+                                            <i class="ri-refresh-line"></i>
+                                                </button>
+                                                {% endif %}
+                                            </form>
+                                        </div>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    {% else %}
+            <div class="text-center py-12">
+                <div class="w-24 h-24 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                    <i class="ri-ticket-line text-gray-400 text-3xl"></i>
+                </div>
+                <h3 class="text-xl font-semibold text-gray-900 mb-2">Aucun ticket trouvé</h3>
+                <p class="text-gray-600">Aucun ticket ne correspond à vos critères de filtrage.</p>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</section>
+{% endblock %}

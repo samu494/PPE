@@ -1,0 +1,228 @@
+{% extends 'base.html' %}
+{% block title %}Tableau de bord Admin - FreeAfrique{% endblock %}
+
+{% block content %}
+<div class="min-h-screen bg-gray-50">
+    <!-- Header -->
+    <div class="bg-white shadow">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center py-6">
+                <div>
+                    <h1 class="text-3xl font-bold text-gray-900">Tableau de bord Admin</h1>
+                    <p class="mt-2 text-gray-600">Vue d'ensemble de la plateforme FreeAfrique</p>
+                </div>
+                <div class="flex space-x-4">
+                    <a href="{% url 'admin:index' %}" class="bg-primary text-white px-4 py-2 rounded-lg hover:bg-secondary transition-colors">
+                        <i class="ri-settings-line mr-2"></i>Admin Django
+                    </a>
+                    <a href="{% url 'admin_statistics' %}" class="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition-colors">
+                        <i class="ri-bar-chart-line mr-2"></i>Statistiques
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <!-- Statistiques générales -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+            <div class="bg-white rounded-lg shadow p-6">
+                <div class="flex items-center">
+                    <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
+                        <i class="ri-user-star-line text-blue-600 text-xl"></i>
+                    </div>
+                    <div class="ml-4">
+                        <p class="text-sm font-medium text-gray-600">Freelances</p>
+                        <p class="text-2xl font-bold text-gray-900">{{ total_freelancers }}</p>
+                        <p class="text-xs text-green-600">+{{ new_freelancers }} ce mois</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-lg shadow p-6">
+                <div class="flex items-center">
+                    <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center">
+                        <i class="ri-briefcase-line text-green-600 text-xl"></i>
+                    </div>
+                    <div class="ml-4">
+                        <p class="text-sm font-medium text-gray-600">Clients</p>
+                        <p class="text-2xl font-bold text-gray-900">{{ total_clients }}</p>
+                        <p class="text-xs text-green-600">+{{ new_clients }} ce mois</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-lg shadow p-6">
+                <div class="flex items-center">
+                    <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center">
+                        <i class="ri-folder-line text-purple-600 text-xl"></i>
+                    </div>
+                    <div class="ml-4">
+                        <p class="text-sm font-medium text-gray-600">Projets</p>
+                        <p class="text-2xl font-bold text-gray-900">{{ total_projects }}</p>
+                        <p class="text-xs text-green-600">+{{ new_projects }} ce mois</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-lg shadow p-6">
+                <div class="flex items-center">
+                    <div class="w-12 h-12 bg-yellow-100 rounded-lg flex items-center justify-center">
+                        <i class="ri-file-list-line text-yellow-600 text-xl"></i>
+                    </div>
+                    <div class="ml-4">
+                        <p class="text-sm font-medium text-gray-600">Propositions</p>
+                        <p class="text-2xl font-bold text-gray-900">{{ total_proposals }}</p>
+                        <p class="text-xs text-green-600">+{{ new_proposals }} ce mois</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sections principales -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <!-- Propositions en attente -->
+            <div class="bg-white rounded-lg shadow">
+                <div class="px-6 py-4 border-b border-gray-200">
+                    <h3 class="text-lg font-semibold text-gray-900">Propositions en attente</h3>
+                </div>
+                <div class="p-6">
+                    <div class="space-y-4">
+                        <div class="flex justify-between items-center">
+                            <span class="text-gray-600">En attente de validation</span>
+                            <span class="bg-yellow-100 text-yellow-800 px-3 py-1 rounded-full text-sm font-medium">
+                                {{ pending_proposals }}
+                            </span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-gray-600">Approuvées</span>
+                            <span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-medium">
+                                {{ approved_proposals }}
+                            </span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-gray-600">Rejetées</span>
+                            <span class="bg-red-100 text-red-800 px-3 py-1 rounded-full text-sm font-medium">
+                                {{ rejected_proposals }}
+                            </span>
+                        </div>
+                    </div>
+                    <div class="mt-6">
+                        <a href="{% url 'admin_validate_proposals' %}" class="bg-primary text-white px-4 py-2 rounded-lg hover:bg-secondary transition-colors">
+                            <i class="ri-eye-line mr-2"></i>Voir toutes les propositions
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tickets de support -->
+            <div class="bg-white rounded-lg shadow">
+                <div class="px-6 py-4 border-b border-gray-200">
+                    <h3 class="text-lg font-semibold text-gray-900">Tickets de support</h3>
+                </div>
+                <div class="p-6">
+                    <div class="space-y-4">
+                        <div class="flex justify-between items-center">
+                            <span class="text-gray-600">Ouverts</span>
+                            <span class="bg-red-100 text-red-800 px-3 py-1 rounded-full text-sm font-medium">
+                                {{ open_tickets }}
+                            </span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-gray-600">En cours</span>
+                            <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-medium">
+                                {{ in_progress_tickets }}
+                            </span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-gray-600">Résolus</span>
+                            <span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-medium">
+                                {{ resolved_tickets }}
+                            </span>
+                        </div>
+                    </div>
+                    <div class="mt-6">
+                        <a href="{% url 'admin_support_tickets' %}" class="bg-primary text-white px-4 py-2 rounded-lg hover:bg-secondary transition-colors">
+                            <i class="ri-customer-service-line mr-2"></i>Gérer les tickets
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Top catégories et freelances -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mt-8">
+            <!-- Top catégories -->
+            <div class="bg-white rounded-lg shadow">
+                <div class="px-6 py-4 border-b border-gray-200">
+                    <h3 class="text-lg font-semibold text-gray-900">Top catégories</h3>
+                </div>
+                <div class="p-6">
+                    <div class="space-y-4">
+                        {% for category in top_categories %}
+                        <div class="flex justify-between items-center">
+                            <span class="text-gray-700">{{ category.name }}</span>
+                            <span class="text-sm text-gray-500">{{ category.project_count }} projets</span>
+                        </div>
+                        {% empty %}
+                        <p class="text-gray-500 text-center py-4">Aucune catégorie disponible</p>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+
+            <!-- Top freelances -->
+            <div class="bg-white rounded-lg shadow">
+                <div class="px-6 py-4 border-b border-gray-200">
+                    <h3 class="text-lg font-semibold text-gray-900">Top freelances</h3>
+                </div>
+                <div class="p-6">
+                    <div class="space-y-4">
+                        {% for freelancer in top_freelancers %}
+                        <div class="flex justify-between items-center">
+                            <div>
+                                <span class="text-gray-700">{{ freelancer.user.get_full_name }}</span>
+                                <div class="flex items-center mt-1">
+                                    <div class="flex items-center">
+                                        {% for i in "12345" %}
+                                        {% if forloop.counter <= freelancer.rating %}
+                                        <i class="ri-star-fill text-yellow-400 text-sm"></i>
+                                        {% else %}
+                                        <i class="ri-star-line text-gray-300 text-sm"></i>
+                                        {% endif %}
+                                        {% endfor %}
+                                    </div>
+                                    <span class="text-sm text-gray-500 ml-2">{{ freelancer.rating }}/5</span>
+                                </div>
+                            </div>
+                            <span class="text-sm text-gray-500">{{ freelancer.completed_projects }} projets</span>
+                        </div>
+                        {% empty %}
+                        <p class="text-gray-500 text-center py-4">Aucun freelance disponible</p>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Statistiques financières -->
+        <div class="bg-white rounded-lg shadow mt-8">
+            <div class="px-6 py-4 border-b border-gray-200">
+                <h3 class="text-lg font-semibold text-gray-900">Statistiques financières</h3>
+            </div>
+            <div class="p-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="text-center">
+                        <p class="text-sm font-medium text-gray-600">Gains totaux des freelances</p>
+                        <p class="text-2xl font-bold text-green-600">{{ total_earnings }}€</p>
+                    </div>
+                    <div class="text-center">
+                        <p class="text-sm font-medium text-gray-600">Dépenses totales des clients</p>
+                        <p class="text-2xl font-bold text-blue-600">{{ total_spent }}€</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

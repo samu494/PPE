@@ -1,0 +1,294 @@
+{% extends 'base.html' %}
+{% block title %}Ticket #{{ ticket.id }} - Support Client{% endblock %}
+
+{% block content %}
+<!-- Header Section -->
+<section class="bg-gradient-to-r from-primary to-secondary text-white py-8">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex items-center justify-between">
+            <div>
+                <nav class="flex mb-4" aria-label="Breadcrumb">
+                    <ol class="inline-flex items-center space-x-1 md:space-x-3">
+                        <li class="inline-flex items-center">
+                            <a href="{% url 'support_tickets' %}" class="inline-flex items-center text-sm font-medium text-blue-200 hover:text-white">
+                                <i class="ri-home-line mr-2"></i>Support
+                            </a>
+                        </li>
+                        <li>
+                            <div class="flex items-center">
+                                <i class="ri-arrow-right-s-line text-blue-300"></i>
+                                <span class="ml-1 text-sm font-medium text-blue-200 md:ml-2">Ticket #{{ ticket.id }}</span>
+                            </div>
+                        </li>
+                </ol>
+            </nav>
+                <h1 class="text-3xl font-bold">{{ ticket.subject }}</h1>
+                <p class="text-blue-100 mt-2">Créé le {{ ticket.created_at|date:"d/m/Y à H:i" }}</p>
+        </div>
+            <div class="flex space-x-3">
+            {% if ticket.status != 'closed' %}
+                <a href="{% url 'close_support_ticket' ticket.id %}" 
+                   class="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition-colors inline-flex items-center"
+                   onclick="return confirm('Êtes-vous sûr de vouloir fermer ce ticket ?')">
+                    <i class="ri-close-circle-line mr-2"></i>Fermer
+            </a>
+            {% endif %}
+                <a href="{% url 'support_tickets' %}" class="bg-white bg-opacity-20 text-white px-4 py-2 rounded-lg hover:bg-opacity-30 transition-colors inline-flex items-center">
+                    <i class="ri-arrow-left-line mr-2"></i>Retour
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Main Content -->
+<section class="py-8 bg-gray-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex flex-col lg:flex-row gap-8">
+            <!-- Ticket Info Sidebar -->
+            <div class="lg:w-1/3">
+                <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6 mb-6">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-4">Informations du Ticket</h3>
+                    
+                    <div class="space-y-4">
+                        <!-- Status -->
+                        <div>
+                            <label class="text-sm font-medium text-gray-500">Statut</label>
+                            <div class="mt-1">
+                                <span class="px-3 py-1 rounded-full text-xs font-medium
+                                    {% if ticket.status == 'open' %}bg-blue-100 text-blue-800
+                                    {% elif ticket.status == 'in_progress' %}bg-purple-100 text-purple-800
+                                    {% elif ticket.status == 'waiting' %}bg-yellow-100 text-yellow-800
+                                    {% elif ticket.status == 'resolved' %}bg-green-100 text-green-800
+                                    {% else %}bg-gray-100 text-gray-800{% endif %}">
+                                    {{ ticket.get_status_display }}
+                                </span>
+                </div>
+                    </div>
+                    
+                        <!-- Priority -->
+                        <div>
+                            <label class="text-sm font-medium text-gray-500">Priorité</label>
+                            <div class="mt-1">
+                                <span class="px-3 py-1 rounded-full text-xs font-medium
+                                    {% if ticket.priority == 'urgent' %}bg-red-100 text-red-800
+                                    {% elif ticket.priority == 'high' %}bg-orange-100 text-orange-800
+                                    {% elif ticket.priority == 'medium' %}bg-yellow-100 text-yellow-800
+                                    {% else %}bg-green-100 text-green-800{% endif %}">
+                                    {{ ticket.get_priority_display }}
+                                </span>
+                            </div>
+                    </div>
+                    
+                        <!-- Type -->
+                        <div>
+                            <label class="text-sm font-medium text-gray-500">Type</label>
+                            <p class="text-sm text-gray-900 mt-1">{{ ticket.get_ticket_type_display }}</p>
+                    </div>
+                    
+                        <!-- Created By -->
+                        <div>
+                            <label class="text-sm font-medium text-gray-500">Créé par</label>
+                            <p class="text-sm text-gray-900 mt-1">{{ ticket.user.get_full_name|default:ticket.user.username }}</p>
+                    </div>
+                    
+                        <!-- Created Date -->
+                        <div>
+                            <label class="text-sm font-medium text-gray-500">Date de création</label>
+                            <p class="text-sm text-gray-900 mt-1">{{ ticket.created_at|date:"d/m/Y à H:i" }}</p>
+                    </div>
+                    
+                        <!-- Related Project -->
+                    {% if ticket.related_project %}
+                        <div>
+                            <label class="text-sm font-medium text-gray-500">Projet concerné</label>
+                            <p class="text-sm text-gray-900 mt-1">
+                                <a href="{% url 'project_detail' ticket.related_project.id %}" class="text-primary hover:text-secondary">
+                                {{ ticket.related_project.title }}
+                            </a>
+                        </p>
+                    </div>
+                    {% endif %}
+                    
+                        <!-- Assigned To -->
+                    {% if ticket.assigned_to %}
+                        <div>
+                            <label class="text-sm font-medium text-gray-500">Assigné à</label>
+                            <p class="text-sm text-gray-900 mt-1">{{ ticket.assigned_to.get_full_name|default:ticket.assigned_to.username }}</p>
+                        </div>
+                        {% endif %}
+                        
+                        <!-- Attachments -->
+                        {% if ticket.attachments %}
+                        <div>
+                            <label class="text-sm font-medium text-gray-500">Pièces jointes</label>
+                            <div class="mt-2 space-y-2">
+                                {% for attachment in ticket.attachments %}
+                                <div class="flex items-center p-2 bg-gray-50 rounded-lg">
+                                    <i class="ri-attachment-2 text-gray-400 mr-2"></i>
+                                    <span class="text-sm text-gray-700">{{ attachment.name }}</span>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+                
+                <!-- Quick Actions -->
+                <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-4">Actions Rapides</h3>
+                    <div class="space-y-3">
+                        <a href="{% url 'create_support_ticket' %}" class="flex items-center p-3 bg-blue-50 rounded-lg hover:bg-blue-100 transition-colors">
+                            <i class="ri-add-line text-blue-600 mr-3"></i>
+                            <span class="text-blue-900 font-medium">Nouveau ticket</span>
+                        </a>
+                        <a href="#" class="flex items-center p-3 bg-green-50 rounded-lg hover:bg-green-100 transition-colors">
+                            <i class="ri-question-line text-green-600 mr-3"></i>
+                            <span class="text-green-900 font-medium">FAQ</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Main Content Area -->
+            <div class="lg:w-2/3">
+                {% if messages %}
+                <div class="mb-6">
+                    {% for message in messages %}
+                    <div class="bg-{{ message.tags }}-100 border border-{{ message.tags }}-400 text-{{ message.tags }}-700 px-4 py-3 rounded-lg mb-4">
+                        {{ message }}
+        </div>
+                    {% endfor %}
+                </div>
+                {% endif %}
+                
+                <!-- Original Ticket -->
+                <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6 mb-6">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="text-lg font-semibold text-gray-900">Description du problème</h3>
+                        <span class="text-sm text-gray-500">{{ ticket.created_at|date:"d/m/Y à H:i" }}</span>
+                    </div>
+                    
+                    <div class="prose max-w-none">
+                        {{ ticket.description|linebreaks }}
+                    </div>
+                    
+                    {% if ticket.attachments %}
+                    <div class="mt-4 pt-4 border-t border-gray-200">
+                        <h4 class="text-sm font-medium text-gray-700 mb-2">Pièces jointes</h4>
+                        <div class="flex flex-wrap gap-2">
+                            {% for attachment in ticket.attachments %}
+                            <div class="flex items-center p-2 bg-gray-50 rounded-lg">
+                                <i class="ri-attachment-2 text-gray-400 mr-2"></i>
+                                <span class="text-sm text-gray-700">{{ attachment.name }}</span>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    {% endif %}
+            </div>
+            
+            <!-- Responses -->
+                <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6 mb-6">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-4">
+                        Réponses ({{ responses.count }})
+                    </h3>
+            
+                    {% if responses %}
+                    <div class="space-y-6">
+            {% for response in responses %}
+                        <div class="border-l-4 border-gray-200 pl-4 {% if response.is_staff_response %}border-primary{% endif %}">
+                            <div class="flex items-center justify-between mb-2">
+                                <div class="flex items-center">
+                                    <span class="font-medium text-gray-900">{{ response.user.get_full_name|default:response.user.username }}</span>
+                                    {% if response.is_staff_response %}
+                                    <span class="ml-2 px-2 py-1 bg-primary text-white text-xs rounded-full">Staff</span>
+                        {% endif %}
+                    </div>
+                                <span class="text-sm text-gray-500">{{ response.created_at|date:"d/m/Y à H:i" }}</span>
+                </div>
+                            
+                            <div class="prose max-w-none text-gray-700">
+                    {{ response.message|linebreaks }}
+                            </div>
+                            
+                            {% if response.attachments %}
+                            <div class="mt-3 pt-3 border-t border-gray-100">
+                                <h5 class="text-sm font-medium text-gray-700 mb-2">Pièces jointes</h5>
+                                <div class="flex flex-wrap gap-2">
+                                    {% for attachment in response.attachments %}
+                                    <div class="flex items-center p-2 bg-gray-50 rounded-lg">
+                                        <i class="ri-attachment-2 text-gray-400 mr-2"></i>
+                                        <span class="text-sm text-gray-700">{{ attachment.name }}</span>
+                                    </div>
+                                    {% endfor %}
+                </div>
+            </div>
+                            {% endif %}
+            </div>
+            {% endfor %}
+                    </div>
+                    {% else %}
+                    <div class="text-center py-8">
+                        <i class="ri-message-2-line text-4xl text-gray-300 mb-4"></i>
+                        <p class="text-gray-500">Aucune réponse pour le moment.</p>
+                    </div>
+                    {% endif %}
+                </div>
+            
+            <!-- Add Response Form -->
+            {% if ticket.status != 'closed' %}
+                <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-4">Ajouter une réponse</h3>
+                    
+                    <form method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        
+                        <div class="mb-4">
+                            <label for="message" class="block text-sm font-medium text-gray-700 mb-2">
+                                Votre message <span class="text-red-500">*</span>
+                            </label>
+                            <textarea id="message" 
+                                      name="message" 
+                                      rows="6" 
+                                      required
+                                      class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-colors resize-none"
+                                      placeholder="Tapez votre réponse ici..."></textarea>
+                        </div>
+                        
+                        <div class="mb-4">
+                            <label for="response_attachments" class="block text-sm font-medium text-gray-700 mb-2">
+                                Pièces jointes (optionnel)
+                            </label>
+                            <input type="file" 
+                                   id="response_attachments" 
+                                   name="response_attachments" 
+                                   multiple
+                                   class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-colors"
+                                   accept="image/*,.pdf,.doc,.docx,.txt">
+                        </div>
+                        
+                        <div class="flex justify-end">
+                            <button type="submit" 
+                                    class="bg-primary text-white px-6 py-3 rounded-lg font-medium hover:bg-secondary transition-colors inline-flex items-center">
+                                <i class="ri-send-plane-line mr-2"></i>Envoyer la réponse
+                        </button>
+                        </div>
+                    </form>
+            </div>
+            {% else %}
+                <div class="bg-gray-50 rounded-lg p-6 text-center">
+                    <i class="ri-lock-line text-3xl text-gray-400 mb-4"></i>
+                    <h3 class="text-lg font-semibold text-gray-900 mb-2">Ticket fermé</h3>
+                    <p class="text-gray-600 mb-4">Ce ticket est fermé. Si vous avez besoin d'aide supplémentaire, veuillez créer un nouveau ticket.</p>
+                    <a href="{% url 'create_support_ticket' %}" class="bg-primary text-white px-6 py-3 rounded-lg font-medium hover:bg-secondary transition-colors inline-flex items-center">
+                        <i class="ri-add-line mr-2"></i>Créer un nouveau ticket
+                    </a>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+</section>
+{% endblock %}

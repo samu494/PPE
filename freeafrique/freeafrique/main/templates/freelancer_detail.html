@@ -1,0 +1,219 @@
+{% extends 'base.html' %}
+{% block title %}{{ freelancer.user.first_name|default:freelancer.user.username }} - FreeAfrique{% endblock %}
+
+{% block content %}
+<div class="min-h-screen bg-gray-50 py-8">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <!-- En-tête du freelancer -->
+        <div class="bg-white rounded-lg shadow p-6 mb-8">
+            <div class="flex flex-col md:flex-row md:items-center md:justify-between">
+                <div class="flex items-center space-x-6">
+                    {% if freelancer.profile_picture %}
+                    <img src="{{ freelancer.profile_picture.url }}" alt="{{ freelancer.user.first_name }}" 
+                         class="w-24 h-24 rounded-full object-cover">
+                    {% else %}
+                    <div class="w-24 h-24 bg-gray-200 rounded-full flex items-center justify-center">
+                        <i class="ri-user-line text-gray-500 text-4xl"></i>
+                    </div>
+                    {% endif %}
+                    <div>
+                        <h1 class="text-3xl font-bold text-gray-900">{{ freelancer.user.first_name|default:freelancer.user.username }}</h1>
+                        <p class="text-lg text-gray-600">{{ freelancer.title|default:"Freelancer" }}</p>
+                        {% if freelancer.location %}
+                        <div class="flex items-center mt-2 text-gray-500">
+                            <i class="ri-map-pin-line mr-2"></i>
+                            <span>{{ freelancer.location }}</span>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="mt-4 md:mt-0 flex flex-col items-end">
+                    <div class="flex items-center mb-2">
+                        <div class="flex items-center">
+                            {% for i in "12345" %}
+                            {% if forloop.counter <= freelancer.rating|default:0 %}
+                            <i class="ri-star-fill text-yellow-400"></i>
+                            {% else %}
+                            <i class="ri-star-line text-gray-300"></i>
+                            {% endif %}
+                            {% endfor %}
+                        </div>
+                        <span class="ml-2 text-gray-600">({{ freelancer.rating|default:0|floatformat:1 }})</span>
+                    </div>
+                    <a href="{% url 'conversation' freelancer.user.id %}" class="bg-primary text-white px-6 py-2 rounded-lg hover:bg-secondary transition-colors">
+                        <i class="ri-message-3-line mr-2"></i>Contacter
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <!-- Contenu principal -->
+            <div class="lg:col-span-2 space-y-8">
+                <!-- À propos -->
+                {% if freelancer.description %}
+                <div class="bg-white rounded-lg shadow p-6">
+                    <h2 class="text-xl font-semibold text-gray-900 mb-4">À propos</h2>
+                    <div class="prose max-w-none">
+                        <p class="text-gray-700 leading-relaxed">{{ freelancer.description|linebreaks }}</p>
+                    </div>
+                </div>
+                {% endif %}
+
+                <!-- Compétences -->
+                {% if freelancer.skills.all %}
+                <div class="bg-white rounded-lg shadow p-6">
+                    <h2 class="text-xl font-semibold text-gray-900 mb-4">Compétences</h2>
+                    <div class="flex flex-wrap gap-2">
+                        {% for skill in freelancer.skills.all %}
+                        <span class="px-3 py-1 bg-blue-100 text-blue-800 text-sm rounded-full">{{ skill }}</span>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endif %}
+
+                <!-- Portfolio -->
+                {% if freelancer.portfolio.all %}
+                <div class="bg-white rounded-lg shadow p-6">
+                    <h2 class="text-xl font-semibold text-gray-900 mb-4">Portfolio</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        {% for item in freelancer.portfolio.all %}
+                        <div class="border border-gray-200 rounded-lg p-4">
+                            {% if item.image %}
+                            <img src="{{ item.image.url }}" alt="{{ item.title }}" class="w-full h-32 object-cover rounded mb-3">
+                            {% endif %}
+                            <h3 class="font-medium text-gray-900 mb-1">{{ item.title }}</h3>
+                            <p class="text-sm text-gray-600">{{ item.description|truncatewords:15 }}</p>
+                            {% if item.url %}
+                            <a href="{{ item.url }}" target="_blank" class="text-primary text-sm hover:text-secondary">
+                                Voir le projet <i class="ri-external-link-line"></i>
+                            </a>
+                            {% endif %}
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endif %}
+
+                <!-- Avis -->
+                {% if freelancer.reviews.all %}
+                <div class="bg-white rounded-lg shadow p-6">
+                    <h2 class="text-xl font-semibold text-gray-900 mb-4">Avis clients ({{ freelancer.reviews.count }})</h2>
+                    <div class="space-y-4">
+                        {% for review in freelancer.reviews.all %}
+                        <div class="border-b border-gray-200 pb-4 last:border-b-0">
+                            <div class="flex items-center justify-between mb-2">
+                                <div class="flex items-center space-x-3">
+                                    {% if review.client.profile_picture %}
+                                    <img src="{{ review.client.profile_picture.url }}" alt="{{ review.client.user.first_name }}" 
+                                         class="w-8 h-8 rounded-full object-cover">
+                                    {% else %}
+                                    <div class="w-8 h-8 bg-gray-200 rounded-full flex items-center justify-center">
+                                        <i class="ri-user-line text-gray-500 text-sm"></i>
+                                    </div>
+                                    {% endif %}
+                                    <div>
+                                        <h4 class="font-medium text-gray-900">
+                                            {{ review.client.user.first_name|default:review.client.user.username }}
+                                        </h4>
+                                        <p class="text-sm text-gray-500">{{ review.created_at|date:"d/m/Y" }}</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-center">
+                                    {% for i in "12345" %}
+                                    {% if forloop.counter <= review.rating %}
+                                    <i class="ri-star-fill text-yellow-400 text-sm"></i>
+                                    {% else %}
+                                    <i class="ri-star-line text-gray-300 text-sm"></i>
+                                    {% endif %}
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            <p class="text-gray-700">{{ review.comment }}</p>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+
+            <!-- Informations du freelancer -->
+            <div class="space-y-6">
+                <!-- Statistiques -->
+                <div class="bg-white rounded-lg shadow p-6">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-4">Statistiques</h3>
+                    <div class="space-y-4">
+                        <div class="flex justify-between">
+                            <span class="text-gray-600">Note moyenne:</span>
+                            <span class="font-medium text-gray-900">{{ freelancer.rating|default:0|floatformat:1 }}/5</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-600">Projets terminés:</span>
+                            <span class="font-medium text-gray-900">{{ freelancer.completed_projects|default:0 }}</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-600">Taux horaire:</span>
+                            <span class="font-medium text-gray-900">{{ freelancer.hourly_rate|default:0 }} FCFA</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-600">Temps de réponse:</span>
+                            <span class="font-medium text-gray-900">{{ freelancer.response_time|default:"N/A" }}</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-600">Taux de réussite:</span>
+                            <span class="font-medium text-gray-900">{{ freelancer.success_rate|default:0 }}%</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Informations personnelles -->
+                <div class="bg-white rounded-lg shadow p-6">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-4">Informations</h3>
+                    <div class="space-y-3">
+                        {% if freelancer.experience %}
+                        <div>
+                            <span class="text-gray-600 text-sm">Expérience:</span>
+                            <p class="font-medium">{{ freelancer.experience }}</p>
+                        </div>
+                        {% endif %}
+                        {% if freelancer.education %}
+                        <div>
+                            <span class="text-gray-600 text-sm">Formation:</span>
+                            <p class="font-medium">{{ freelancer.education }}</p>
+                        </div>
+                        {% endif %}
+                        {% if freelancer.languages %}
+                        <div>
+                            <span class="text-gray-600 text-sm">Langues:</span>
+                            <p class="font-medium">{{ freelancer.languages }}</p>
+                        </div>
+                        {% endif %}
+                        <div>
+                            <span class="text-gray-600 text-sm">Membre depuis:</span>
+                            <p class="font-medium">{{ freelancer.user.date_joined|date:"d/m/Y" }}</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Actions -->
+                <div class="bg-white rounded-lg shadow p-6">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-4">Actions</h3>
+                    <div class="space-y-3">
+                        <a href="{% url 'conversation' freelancer.user.id %}" class="w-full bg-primary text-white px-4 py-2 rounded-lg hover:bg-secondary transition-colors text-center block">
+                            <i class="ri-message-3-line mr-2"></i>Envoyer un message
+                        </a>
+                        {% if user.client %}
+                        <a href="{% url 'create_project' %}" class="w-full bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 transition-colors text-center block">
+                            <i class="ri-add-line mr-2"></i>Créer un projet
+                        </a>
+                        {% endif %}
+                        <button class="w-full bg-gray-100 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-200 transition-colors">
+                            <i class="ri-heart-line mr-2"></i>Ajouter aux favoris
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

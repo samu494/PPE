@@ -1,0 +1,229 @@
+{% extends 'base.html' %}
+{% block title %}Créer un projet - FreeAfrique{% endblock %}
+
+{% block content %}
+<div class="min-h-screen bg-gray-50 py-8">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <!-- En-tête avec bouton retour -->
+        <div class="mb-8">
+            <div class="flex items-center justify-between mb-4">
+                <div>
+                    <h1 class="text-3xl font-bold text-gray-900">Créer un nouveau projet</h1>
+                    <p class="mt-2 text-gray-600">Décrivez votre projet pour attirer les meilleurs freelancers</p>
+                </div>
+                <a href="{% url 'projects_list' %}" class="inline-flex items-center px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors">
+                    <i class="ri-arrow-left-line mr-2"></i>
+                    Retour aux projets
+                </a>
+            </div>
+        </div>
+
+        <!-- Formulaire -->
+        <div class="bg-white rounded-lg shadow p-8">
+            <form method="POST" enctype="multipart/form-data" class="space-y-6">
+                {% csrf_token %}
+                
+                <!-- Titre du projet -->
+                <div>
+                    <label for="{{ form.title.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2">
+                        Titre du projet *
+                    </label>
+                    {{ form.title }}
+                    {% if form.title.errors %}
+                    <div class="mt-1 text-sm text-red-600">
+                        {% for error in form.title.errors %}
+                        <p>{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                </div>
+
+                <!-- Description -->
+                <div>
+                    <label for="{{ form.description.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2">
+                        Description détaillée *
+                    </label>
+                    {{ form.description }}
+                    {% if form.description.errors %}
+                    <div class="mt-1 text-sm text-red-600">
+                        {% for error in form.description.errors %}
+                        <p>{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                    <p class="mt-1 text-sm text-gray-500">
+                        Décrivez clairement vos besoins, objectifs et exigences du projet
+                    </p>
+                </div>
+
+                <!-- Catégorie -->
+                <div>
+                    <label for="{{ form.category.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2">
+                        Catégorie *
+                    </label>
+                    {{ form.category }}
+                    {% if form.category.errors %}
+                    <div class="mt-1 text-sm text-red-600">
+                        {% for error in form.category.errors %}
+                        <p>{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                </div>
+
+                <!-- Budget -->
+                <div>
+                    <label for="{{ form.budget.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2">
+                        Budget (FCFA) *
+                    </label>
+                    {{ form.budget }}
+                    {% if form.budget.errors %}
+                    <div class="mt-1 text-sm text-red-600">
+                        {% for error in form.budget.errors %}
+                        <p>{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                    <p class="mt-1 text-sm text-gray-500">
+                        Indiquez votre budget maximum pour ce projet
+                    </p>
+                </div>
+
+                <!-- Délai -->
+                <div>
+                    <label for="{{ form.deadline.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2">
+                        Date limite *
+                    </label>
+                    {{ form.deadline }}
+                    {% if form.deadline.errors %}
+                    <div class="mt-1 text-sm text-red-600">
+                        {% for error in form.deadline.errors %}
+                        <p>{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                    <p class="mt-1 text-sm text-gray-500">
+                        Date à laquelle vous souhaitez que le projet soit terminé
+                    </p>
+                </div>
+
+                <!-- Compétences -->
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">
+                        Compétences requises
+                    </label>
+                    <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
+                        <label class="flex items-center">
+                            <input type="checkbox" name="skills" value="Développement Web" class="mr-2">
+                            <span class="text-sm">Développement Web</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="checkbox" name="skills" value="Développement Mobile" class="mr-2">
+                            <span class="text-sm">Développement Mobile</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="checkbox" name="skills" value="Design UI/UX" class="mr-2">
+                            <span class="text-sm">Design UI/UX</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="checkbox" name="skills" value="Marketing Digital" class="mr-2">
+                            <span class="text-sm">Marketing Digital</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="checkbox" name="skills" value="Rédaction" class="mr-2">
+                            <span class="text-sm">Rédaction</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="checkbox" name="skills" value="Traduction" class="mr-2">
+                            <span class="text-sm">Traduction</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="checkbox" name="skills" value="Graphisme" class="mr-2">
+                            <span class="text-sm">Graphisme</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="checkbox" name="skills" value="Vidéo" class="mr-2">
+                            <span class="text-sm">Vidéo</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="checkbox" name="skills" value="Audio" class="mr-2">
+                            <span class="text-sm">Audio</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Fichiers joints -->
+                <div>
+                    <label for="{{ form.attachments.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2">
+                        Fichiers joints (optionnel)
+                    </label>
+                    {{ form.attachments }}
+                    {% if form.attachments.errors %}
+                    <div class="mt-1 text-sm text-red-600">
+                        {% for error in form.attachments.errors %}
+                        <p>{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                    <p class="mt-1 text-sm text-gray-500">
+                        Ajoutez des documents, images ou références pour clarifier votre projet
+                    </p>
+                </div>
+
+                <!-- Informations supplémentaires -->
+                <div>
+                    <label for="{{ form.additional_info.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2">
+                        Informations supplémentaires (optionnel)
+                    </label>
+                    {{ form.additional_info }}
+                    {% if form.additional_info.errors %}
+                    <div class="mt-1 text-sm text-red-600">
+                        {% for error in form.additional_info.errors %}
+                        <p>{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                    <p class="mt-1 text-sm text-gray-500">
+                        Précisions sur les exigences, contraintes ou préférences
+                    </p>
+                </div>
+
+                <!-- Boutons -->
+                <div class="flex justify-end space-x-4 pt-6 border-t border-gray-200">
+                    <a href="{% url 'projects_list' %}" class="px-6 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors">
+                        Annuler
+                    </a>
+                    <button type="submit" class="px-6 py-2 bg-primary text-white rounded-lg hover:bg-secondary transition-colors">
+                        <i class="ri-send-plane-line mr-2"></i>Publier le projet
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Conseils -->
+        <div class="mt-8 bg-blue-50 rounded-lg p-6">
+            <h3 class="text-lg font-semibold text-blue-900 mb-4">
+                <i class="ri-lightbulb-line mr-2"></i>Conseils pour un projet réussi
+            </h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm text-blue-800">
+                <div>
+                    <h4 class="font-medium mb-2">📝 Description claire</h4>
+                    <p>Décrivez précisément vos besoins et objectifs pour attirer les bons freelancers.</p>
+                </div>
+                <div>
+                    <h4 class="font-medium mb-2">💰 Budget réaliste</h4>
+                    <p>Fixez un budget approprié pour la qualité de travail que vous attendez.</p>
+                </div>
+                <div>
+                    <h4 class="font-medium mb-2">⏰ Délai raisonnable</h4>
+                    <p>Donnez suffisamment de temps pour un travail de qualité.</p>
+                </div>
+                <div>
+                    <h4 class="font-medium mb-2">🎯 Compétences précises</h4>
+                    <p>Sélectionnez les compétences qui correspondent vraiment à votre projet.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

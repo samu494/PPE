@@ -1,0 +1,151 @@
+{% extends 'base.html' %}
+{% block title %}Choisir votre rôle - FreeAfrique{% endblock %}
+
+{% block content %}
+<div class="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+    <div class="sm:mx-auto sm:w-full sm:max-w-4xl">
+        <div class="text-center mb-8">
+            <h1 class="text-4xl font-bold text-gray-900 mb-4">
+                Bienvenue sur FreeAfrique
+            </h1>
+            <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+                Choisissez votre rôle pour commencer votre expérience sur notre plateforme
+            </p>
+        </div>
+    </div>
+
+    <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-4xl">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            
+            <!-- Carte Client -->
+            <div class="bg-white rounded-2xl shadow-lg border border-gray-200 p-8 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2">
+                <div class="text-center">
+                    <div class="w-20 h-20 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="ri-briefcase-line text-3xl text-blue-600"></i>
+                    </div>
+                    <h2 class="text-2xl font-bold text-gray-900 mb-4">Je suis un Client</h2>
+                    <p class="text-gray-600 mb-6">
+                        Vous avez un projet à réaliser ? Trouvez le freelance parfait pour vos besoins.
+                    </p>
+                    
+                    <div class="space-y-3 mb-8 text-left">
+                        <div class="flex items-center">
+                            <i class="ri-check-line text-green-500 mr-3"></i>
+                            <span class="text-gray-700">Publiez vos projets</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="ri-check-line text-green-500 mr-3"></i>
+                            <span class="text-gray-700">Recevez des propositions</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="ri-check-line text-green-500 mr-3"></i>
+                            <span class="text-gray-700">Choisissez le meilleur freelance</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="ri-check-line text-green-500 mr-3"></i>
+                            <span class="text-gray-700">Suivez l'avancement</span>
+                        </div>
+                    </div>
+                    
+                    <div class="space-y-3">
+                        <a href="{% url 'login' %}?role=client" class="w-full bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors inline-block">
+                            <i class="ri-login-box-line mr-2"></i>
+                            Se connecter en tant que Client
+                        </a>
+                        <a href="{% url 'signup_client' %}" class="w-full border-2 border-blue-600 text-blue-600 px-6 py-3 rounded-lg font-semibold hover:bg-blue-50 transition-colors inline-block">
+                            <i class="ri-user-add-line mr-2"></i>
+                            Créer un compte Client
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Carte Freelance -->
+            <div class="bg-white rounded-2xl shadow-lg border border-gray-200 p-8 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2">
+                <div class="text-center">
+                    <div class="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="ri-user-star-line text-3xl text-green-600"></i>
+                    </div>
+                    <h2 class="text-2xl font-bold text-gray-900 mb-4">Je suis un Freelance</h2>
+                    <p class="text-gray-600 mb-6">
+                        Vous avez des compétences à proposer ? Trouvez des projets qui vous correspondent.
+                    </p>
+                    
+                    <div class="space-y-3 mb-8 text-left">
+                        <div class="flex items-center">
+                            <i class="ri-check-line text-green-500 mr-3"></i>
+                            <span class="text-gray-700">Proposez vos services</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="ri-check-line text-green-500 mr-3"></i>
+                            <span class="text-gray-700">Trouvez des projets</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="ri-check-line text-green-500 mr-3"></i>
+                            <span class="text-gray-700">Gagnez de l'argent</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="ri-check-line text-green-500 mr-3"></i>
+                            <span class="text-gray-700">Développez votre réseau</span>
+                        </div>
+                    </div>
+                    
+                    <div class="space-y-3">
+                        <a href="{% url 'login' %}?role=freelancer" class="w-full bg-green-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-green-700 transition-colors inline-block">
+                            <i class="ri-login-box-line mr-2"></i>
+                            Se connecter en tant que Freelance
+                        </a>
+                        <a href="{% url 'signup_freelancer' %}" class="w-full border-2 border-green-600 text-green-600 px-6 py-3 rounded-lg font-semibold hover:bg-green-50 transition-colors inline-block">
+                            <i class="ri-user-add-line mr-2"></i>
+                            Créer un compte Freelance
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section Informations -->
+        <div class="mt-12 bg-white rounded-2xl shadow-lg border border-gray-200 p-8">
+            <div class="text-center mb-6">
+                <h3 class="text-xl font-semibold text-gray-900 mb-2">Pourquoi choisir FreeAfrique ?</h3>
+                <p class="text-gray-600">La première plateforme de freelance africaine</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="text-center">
+                    <div class="w-12 h-12 bg-yellow-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="ri-shield-check-line text-yellow-600"></i>
+                    </div>
+                    <h4 class="font-semibold text-gray-900 mb-2">Sécurisé</h4>
+                    <p class="text-sm text-gray-600">Paiements sécurisés et protection des données</p>
+                </div>
+                
+                <div class="text-center">
+                    <div class="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="ri-global-line text-purple-600"></i>
+                    </div>
+                    <h4 class="font-semibold text-gray-900 mb-2">International</h4>
+                    <p class="text-sm text-gray-600">Connexions mondiales, talents locaux</p>
+                </div>
+                
+                <div class="text-center">
+                    <div class="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="ri-customer-service-2-line text-red-600"></i>
+                    </div>
+                    <h4 class="font-semibold text-gray-900 mb-2">Support 24/7</h4>
+                    <p class="text-sm text-gray-600">Assistance disponible à tout moment</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bouton Retour -->
+        <div class="mt-8 text-center">
+            <a href="{% url 'home' %}" class="inline-flex items-center text-gray-600 hover:text-gray-900 transition-colors">
+                <i class="ri-arrow-left-line mr-2"></i>
+                Retour à l'accueil
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}
+

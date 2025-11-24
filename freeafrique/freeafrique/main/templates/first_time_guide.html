@@ -1,0 +1,182 @@
+{% extends 'base.html' %}
+{% block title %}Guide de démarrage - FreeAfrique{% endblock %}
+
+{% block content %}
+<!-- Header Section -->
+<section class="bg-gradient-to-r from-primary to-secondary text-white py-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center">
+            <h1 class="text-4xl md:text-5xl font-bold mb-6">
+                Bienvenue sur FreeAfrique !
+            </h1>
+            <p class="text-xl text-blue-100 max-w-3xl mx-auto">
+                Votre guide complet pour commencer à utiliser la plateforme
+            </p>
+        </div>
+    </div>
+</section>
+
+<!-- Section Premiers pas -->
+<section class="py-16 bg-gray-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl font-bold text-gray-900 mb-4">
+                Premiers pas
+            </h2>
+            <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+                Commencez votre aventure sur FreeAfrique en quelques étapes simples
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <!-- Étape 1 -->
+            <div class="bg-white rounded-xl shadow-lg p-6 text-center">
+                <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <span class="text-2xl font-bold text-blue-600">1</span>
+                </div>
+                <h3 class="text-lg font-semibold text-gray-900 mb-3">Complétez votre profil</h3>
+                <p class="text-gray-600 mb-4">
+                    Ajoutez vos informations personnelles, compétences et expérience
+                </p>
+                <a href="{% url 'dashboard' %}" class="inline-flex items-center text-primary hover:text-secondary font-medium">
+                    Aller au profil <i class="ri-arrow-right-line ml-1"></i>
+                </a>
+            </div>
+
+            <!-- Étape 2 -->
+            <div class="bg-white rounded-xl shadow-lg p-6 text-center">
+                <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <span class="text-2xl font-bold text-green-600">2</span>
+                </div>
+                <h3 class="text-lg font-semibold text-gray-900 mb-3">Explorez la plateforme</h3>
+                <p class="text-gray-600 mb-4">
+                    Découvrez les projets disponibles ou créez votre premier projet
+                </p>
+                <a href="{% url 'projects_list' %}" class="inline-flex items-center text-primary hover:text-secondary font-medium">
+                    Voir les projets <i class="ri-arrow-right-line ml-1"></i>
+                </a>
+            </div>
+
+            <!-- Étape 3 -->
+            <div class="bg-white rounded-xl shadow-lg p-6 text-center">
+                <div class="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <span class="text-2xl font-bold text-purple-600">3</span>
+                </div>
+                <h3 class="text-lg font-semibold text-gray-900 mb-3">Commencez à collaborer</h3>
+                <p class="text-gray-600 mb-4">
+                    Proposez vos services ou engagez un freelance pour votre projet
+                </p>
+                <a href="{% url 'freelancers_list' %}" class="inline-flex items-center text-primary hover:text-secondary font-medium">
+                    Trouver des freelances <i class="ri-arrow-right-line ml-1"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Section Conseils -->
+<section class="py-16 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl font-bold text-gray-900 mb-4">
+                Conseils pour réussir
+            </h2>
+            <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+                Les meilleures pratiques pour optimiser votre expérience
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <!-- Pour les Clients -->
+            <div class="bg-white rounded-xl shadow-lg p-8 border border-gray-200">
+                <h3 class="text-xl font-semibold text-gray-900 mb-6 text-center">
+                    <i class="ri-briefcase-line mr-2 text-blue-600"></i>
+                    Conseils pour les Clients
+                </h3>
+                
+                <div class="space-y-4">
+                    <div class="flex items-start">
+                        <i class="ri-lightbulb-line text-yellow-500 mt-1 mr-3"></i>
+                        <div>
+                            <h4 class="font-medium text-gray-900">Soyez précis</h4>
+                            <p class="text-sm text-gray-600">Plus votre description est détaillée, meilleures seront les propositions</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-start">
+                        <i class="ri-lightbulb-line text-yellow-500 mt-1 mr-3"></i>
+                        <div>
+                            <h4 class="font-medium text-gray-900">Communiquez régulièrement</h4>
+                            <p class="text-sm text-gray-600">Maintenez un dialogue ouvert avec votre freelance</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-start">
+                        <i class="ri-lightbulb-line text-yellow-500 mt-1 mr-3"></i>
+                        <div>
+                            <h4 class="font-medium text-gray-900">Donnez du feedback</h4>
+                            <p class="text-sm text-gray-600">Partagez vos impressions pour améliorer la collaboration</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Pour les Freelances -->
+            <div class="bg-white rounded-xl shadow-lg p-8 border border-gray-200">
+                <h3 class="text-xl font-semibold text-gray-900 mb-6 text-center">
+                    <i class="ri-user-star-line mr-2 text-green-600"></i>
+                    Conseils pour les Freelances
+                </h3>
+                
+                <div class="space-y-4">
+                    <div class="flex items-start">
+                        <i class="ri-lightbulb-line text-yellow-500 mt-1 mr-3"></i>
+                        <div>
+                            <h4 class="font-medium text-gray-900">Profil complet</h4>
+                            <p class="text-sm text-gray-600">Un profil détaillé augmente vos chances d'être sélectionné</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-start">
+                        <i class="ri-lightbulb-line text-yellow-500 mt-1 mr-3"></i>
+                        <div>
+                            <h4 class="font-medium text-gray-900">Propositions personnalisées</h4>
+                            <p class="text-sm text-gray-600">Adaptez chaque proposition au projet spécifique</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-start">
+                        <i class="ri-lightbulb-line text-yellow-500 mt-1 mr-3"></i>
+                        <div>
+                            <h4 class="font-medium text-gray-900">Respectez les délais</h4>
+                            <p class="text-sm text-gray-600">La ponctualité est essentielle pour votre réputation</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Section CTA Final -->
+<section class="py-16 bg-gradient-to-r from-primary to-secondary text-white">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <h2 class="text-3xl font-bold mb-6">
+            Prêt à commencer ?
+        </h2>
+        <p class="text-xl text-blue-100 mb-8">
+            Vous avez maintenant toutes les informations pour réussir sur FreeAfrique
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+            <a href="{% url 'dashboard' %}" class="bg-white text-primary px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors">
+                <i class="ri-dashboard-line mr-2"></i>
+                Aller au tableau de bord
+            </a>
+            <a href="{% url 'home' %}" class="border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-primary transition-colors">
+                <i class="ri-arrow-left-line mr-2"></i>
+                Retour à l'accueil
+            </a>
+        </div>
+    </div>
+</section>
+{% endblock %}
